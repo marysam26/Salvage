@@ -1,0 +1,28 @@
+# Resolved #
+
+
+# Pending #
+
+**[1]** Add background with spaceship "block" and lives, gears and timer, at top of screen
+**[2]** Add astronaut block that is controlled by arrow keys
+**[3]** Add block planet on screen 
+**[4]** Add moon "block" on screen
+**[5]** Add gear "block" on screen
+**[6]** Enable Astronaut to pick up and move with block
+**[7]** When astronaut brings gear block to space ship, gear dissapears and gear count increments
+**[8]** Add 1 asteroid to game 
+**[9[** Add gravity to planet that affects astronaut based on distance
+**[]** Add shield information display for astonaut top of screen
+**[]** Asteroids damage shield
+**[10]** Add correct "round" collision control to moon and astronaut
+**[]** hitting Moon too quickly damages shield
+**[11]** Add floating state to astronaut object
+**[12]** Add effect of death if astronaut falls too far into the planet's atmosphere
+**[13]** Beautify spaceship
+**[14]** Add thrust animation
+**[15]** Beautify astronaut
+**[16]** Add astronaut animation
+**[17]** implement timer at top of screen 
+**[18]** Add game over state that is entered if lives = 0 or timer = 0
+
+
