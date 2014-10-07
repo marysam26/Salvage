@@ -1,5 +1,6 @@
 package salvage;
 import java.util.ArrayList;
+import java.util.Timer;
 
 import jig.Entity;
 import jig.ResourceManager;
@@ -60,6 +61,7 @@ public class SalvageGame extends StateBasedGame {
 		public Integer currentLevel;
 
 		public Spaceship ship;
+		public int duration;
 
 		/**
 		 * Create the BounceGame frame, saving the width and height for later use.
@@ -78,7 +80,7 @@ public class SalvageGame extends StateBasedGame {
 			AvailableLevels = levelNum;
 			currentLevel= 1;
 			Entity.setCoarseGrainedCollisionBoundary(Entity.AABB);
-			
+		
 		}
 
 
@@ -98,8 +100,8 @@ public class SalvageGame extends StateBasedGame {
 
 			// preload all the resources to avoid warnings & minimize latency...
 			ResourceManager.loadImage(SPACESHIP_SHIPIMG_RSC);
-	
-			ship = new Spaceship(ScreenWidth/2, ScreenHeight/2);
+			duration = 600;
+			ship = new Spaceship(ScreenWidth/2, 125);
 		//	ball = new Ball(ScreenWidth / 2, ScreenHeight / 2, .3f, .4f);
 
 		}
@@ -110,6 +112,7 @@ public class SalvageGame extends StateBasedGame {
 				app = new AppGameContainer(new SalvageGame("Salvage", 1280, 800, 1));
 				app.setDisplayMode(1280, 800, false);
 				app.setVSync(true);
+				app.setShowFPS(false);
 				app.start();
 			} catch (SlickException e) {
 				e.printStackTrace();
