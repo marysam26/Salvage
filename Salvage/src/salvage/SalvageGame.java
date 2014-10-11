@@ -51,6 +51,7 @@ public class SalvageGame extends StateBasedGame {
 		public static final int NEXTLEVELSTATE = 3;
 //		
 		public static final String SPACESHIP_SHIPIMG_RSC = "salvage/resources/spaceBlock.png";
+		public static final String ASTRONAUTH_ASTRIMG_RSC = "salvage/resources/astronautBlock.png";
 //		public static final String BANG_EXPLOSIONSND_RSC = "bounce/resource/explosion.wav";
 //		public static final String PING_EXPLOSIONSND_RSC = "bounce/resource/ping.ogg";
 //		
@@ -61,6 +62,7 @@ public class SalvageGame extends StateBasedGame {
 		public Integer currentLevel;
 
 		public Spaceship ship;
+		public Astronaut astronaut;
 		public int duration;
 
 		/**
@@ -87,9 +89,9 @@ public class SalvageGame extends StateBasedGame {
 		@Override
 		public void initStatesList(GameContainer container) throws SlickException {
 			addState(new StartUpState());
-	/*		addState(new GameOverState());
+			//addState(new GameOverState());
 			addState(new PlayingState());
-			addState(new NextLevelState());*/
+			//addState(new NextLevelState());*/
 			
 			// the sound resource takes a particularly long time to load,
 			// we preload it here to (1) reduce latency when we first play it
@@ -100,10 +102,11 @@ public class SalvageGame extends StateBasedGame {
 
 			// preload all the resources to avoid warnings & minimize latency...
 			ResourceManager.loadImage(SPACESHIP_SHIPIMG_RSC);
+			ResourceManager.loadImage(ASTRONAUTH_ASTRIMG_RSC);
+			
 			duration = 600;
 			ship = new Spaceship(ScreenWidth/2, 125);
-		//	ball = new Ball(ScreenWidth / 2, ScreenHeight / 2, .3f, .4f);
-
+			astronaut = new Astronaut(ScreenWidth/2, ScreenHeight/2, 0f, 0f);
 		}
 		
 		public static void main(String[] args) {
