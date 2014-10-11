@@ -46,7 +46,9 @@ public class PlayingState extends BasicGameState {
 		sg.ship.render(g);
 		sg.astronaut.render(g);
 		sg.planet.render(g);
-		// TODO Auto-generated method stub
+		for( Moon m : sg.moon){
+			m.render(g);
+		}
 		
 	}
 
