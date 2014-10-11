@@ -45,6 +45,7 @@ public class PlayingState extends BasicGameState {
 		g.drawString("Shield", 500, 30);
 		sg.ship.render(g);
 		sg.astronaut.render(g);
+		sg.planet.render(g);
 		// TODO Auto-generated method stub
 		
 	}
