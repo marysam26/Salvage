@@ -53,6 +53,7 @@ public class SalvageGame extends StateBasedGame {
 		public static final String SPACESHIP_SHIPIMG_RSC = "salvage/resources/spaceBlock.png";
 		public static final String ASTRONAUTH_ASTRIMG_RSC = "salvage/resources/astronautBlock.png";
 		public static final String PLANET1_PLANETIMG_RSC = "salvage/resources/Planet-11.png";
+		public static final String MOON_MOONIMG_RSC = "salvage/resources/moon.png";
 //		public static final String BANG_EXPLOSIONSND_RSC = "bounce/resource/explosion.wav";
 //		public static final String PING_EXPLOSIONSND_RSC = "bounce/resource/ping.ogg";
 //		
@@ -65,6 +66,7 @@ public class SalvageGame extends StateBasedGame {
 		public Spaceship ship;
 		public Astronaut astronaut;
 		public Planet planet;
+		public ArrayList<Moon> moon;
 		public int duration;
 
 		/**
@@ -106,11 +108,14 @@ public class SalvageGame extends StateBasedGame {
 			ResourceManager.loadImage(SPACESHIP_SHIPIMG_RSC);
 			ResourceManager.loadImage(ASTRONAUTH_ASTRIMG_RSC);
 			ResourceManager.loadImage(PLANET1_PLANETIMG_RSC);
+			ResourceManager.loadImage(MOON_MOONIMG_RSC);
 			
 			duration = 600;
 			ship = new Spaceship(ScreenWidth/2, 125);
 			astronaut = new Astronaut(ScreenWidth/2, ScreenHeight/2, 0f, 0f);
 			planet = new Planet(ScreenWidth/2, (1.5f)*ScreenHeight, 1, 9.8f);
+			moon = new ArrayList<Moon>(100);
+			moon.add(new Moon(ScreenWidth/4,ScreenHeight/2, 100));
 		}
 		
 		public static void main(String[] args) {
