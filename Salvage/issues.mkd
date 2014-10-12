@@ -1,14 +1,14 @@
 # Resolved #
 
-
-# Pending #
-
 **[1]** Add background with spaceship "block" and lives, gears and timer, at top of screen
 **[2]** Add astronaut block that is controlled by arrow keys
 **[3]** Add block planet on screen 
 **[4]** Add moon "block" on screen
 **[5]** Add gear "block" on screen
 **[6]** Enable Astronaut to pick up and move with block
+
+# Pending #
+
 **[7]** When astronaut brings gear block to space ship, gear dissapears and gear count increments
 **[8]** Add 1 asteroid to game 
 **[9[** Add gravity to planet that affects astronaut based on distance
