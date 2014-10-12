@@ -49,7 +49,9 @@ public class PlayingState extends BasicGameState {
 		for( Moon m : sg.moon){
 			m.render(g);
 		}
-		
+		for(Gear gr : sg.gear){
+			gr.render(g);
+		}
 	}
 
 	@Override

@@ -37,7 +37,9 @@ public class StartUpState extends BasicGameState {
 			m.render(g);
 		}
 	
-		
+		for(Gear gr : sg.gear){
+			gr.render(g);
+		}
 	}
 
 	@Override
