@@ -79,6 +79,16 @@ public class PlayingState extends BasicGameState {
 			sg.astronaut.setVelocity(sg.astronaut.getVelocity().add(sg.astronaut.getVelocity().negate().scale((float)(0.001*delta))));
 		}
 		
+		for (Gear gr : sg.gear){
+			if(sg.astronaut.collides(gr) != null){
+				gr.pickUp();	
+			}
+			if(gr.isHeld()){
+				gr.setVelocity(sg.astronaut.getVelocity());
+				gr.update(delta);
+			}
+		}
+	
 		sg.astronaut.update(delta);
 	}
 
