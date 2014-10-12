@@ -23,7 +23,17 @@ public class Astronaut extends Entity {
 				.getImage(SalvageGame.ASTRONAUTH_ASTRIMG_RSC));
 	
 	}
+	public Boolean hasGear(){
+		return hasGear;
+	}
 	
+	public void pickUp(){
+		hasGear = true;
+	}
+	
+	public void drop(){
+		hasGear = false;
+	}
 	public Vector getVelocity(){
 		return velocity;
 	}

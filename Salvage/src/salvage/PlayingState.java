@@ -1,5 +1,6 @@
 package salvage;
 
+import java.util.Iterator;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -12,9 +13,12 @@ import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 
+
 public class PlayingState extends BasicGameState {
 	private Timer timer;
 	private int duration;
+	private int numGears;
+	private int livesLeft;
 	
 	@Override
 	public void init(GameContainer container, StateBasedGame game)
@@ -22,7 +26,13 @@ public class PlayingState extends BasicGameState {
 		// TODO Auto-generated method stub
 		timer = new Timer();
 	}
+	public void setGears(int gears){
+		numGears = gears;
+	}
 	
+	public void setLives(int lives){
+		livesLeft = lives;
+	}
 	public void setTimer( final int countDown){ 
         duration = countDown;
         timer.scheduleAtFixedRate(new TimerTask() {
@@ -33,14 +43,15 @@ public class PlayingState extends BasicGameState {
             }
         }, 0, 1000);
 	}
+	
 
 	@Override
 	public void render(GameContainer container, StateBasedGame game, Graphics g)
 			throws SlickException {
 		SalvageGame sg = (SalvageGame)game;
 		g.drawString("Playing State", 0, 10);
-		g.drawString("Gears: 0", 10, 30);
-		g.drawString("Lives Remaining: 3", 110, 30);
+		g.drawString("Gears: "+numGears, 10, 30);
+		g.drawString("Lives Remaining: "+livesLeft, 110, 30);
 		g.drawString("Time Left: "+duration/60 +":" +duration%60  , 310, 30);
 		g.drawString("Shield", 500, 30);
 		sg.ship.render(g);
@@ -82,10 +93,22 @@ public class PlayingState extends BasicGameState {
 		for (Gear gr : sg.gear){
 			if(sg.astronaut.collides(gr) != null){
 				gr.pickUp();	
+				sg.astronaut.pickUp();
 			}
 			if(gr.isHeld()){
 				gr.setVelocity(sg.astronaut.getVelocity());
 				gr.update(delta);
+			}
+		}
+		if(sg.astronaut.hasGear()){
+			if(sg.astronaut.collides(sg.ship)!= null){
+				numGears -=1;
+				sg.astronaut.drop();
+				for (Iterator<Gear> i = sg.gear.iterator(); i.hasNext();) {
+					if (i.next().isHeld()) {
+						i.remove();
+					}
+				}
 			}
 		}
 	
