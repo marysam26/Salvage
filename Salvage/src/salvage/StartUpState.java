@@ -75,6 +75,8 @@ public class StartUpState extends BasicGameState {
 		}
 		if(startGame){
 			((PlayingState)game.getState(SalvageGame.PLAYINGSTATE)).setTimer(sg.duration);
+			((PlayingState)game.getState(SalvageGame.PLAYINGSTATE)).setGears(sg.gear.size());
+			((PlayingState)game.getState(SalvageGame.PLAYINGSTATE)).setLives(3);
 			sg.enterState(SalvageGame.PLAYINGSTATE);	
 		}
 	}
