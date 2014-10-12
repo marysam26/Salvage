@@ -17,6 +17,10 @@ public class Gear extends Entity{
 			
 		}
 		
+		public Boolean isHeld(){
+			return isHeld;
+		}
+		
 		public void pickUp(){
 			isHeld = true;
 		}
