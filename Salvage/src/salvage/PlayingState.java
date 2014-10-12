@@ -111,8 +111,24 @@ public class PlayingState extends BasicGameState {
 				}
 			}
 		}
+		sg.astronaut.setVelocity(sg.astronaut.getVelocity().add(applyGravity(sg.astronaut.getX(),
+				sg.planet.getX(),sg.astronaut.getY(), sg.planet.getY())));
 	
 		sg.astronaut.update(delta);
+	}
+	
+	public Vector applyGravity(float asPosX, float planPosX, float asPosY, float planPosY){
+		float G = 0.00067f;
+		float aMass = 1;
+		float pMass = 1000;
+		float rX = asPosX - planPosX;
+		float rY = asPosY - planPosY;
+		float r = (float)Math.sqrt((rX*rX)+(rY*rY));
+		float forceX = G*(aMass*pMass)/(r*r);
+		float forceY = G*(aMass*pMass)/(r*r);
+		return new Vector(-forceX*rX, -forceY*rY);
+		
+		
 	}
 
 	@Override
