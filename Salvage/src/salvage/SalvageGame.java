@@ -115,7 +115,7 @@ public class SalvageGame extends StateBasedGame {
 			duration = 600;
 			ship = new Spaceship(ScreenWidth/2, 125);
 			astronaut = new Astronaut(ScreenWidth/2, ScreenHeight/2, 0f, 0f);
-			planet = new Planet(ScreenWidth/2, (1.5f)*ScreenHeight, 1, 9.8f);
+			planet = new Planet(ScreenWidth/2, (1.5f)*ScreenHeight, 1, 1000, 600);
 			moon = new ArrayList<Moon>(10);
 			moon.add(new Moon(ScreenWidth/4,ScreenHeight/2, 100));
 			gear = new ArrayList<Gear>(10);
