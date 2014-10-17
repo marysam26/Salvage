@@ -10,9 +10,9 @@
 # Pending #
 
 **[7]** When astronaut brings gear block to space ship, gear dissapears and gear count increments
-**[9[** Add gravity to planet that affects astronaut based on distance
-**[]** Add shield information display for astronaut top of screen
-**[]**When the astronaut returns to spaceship, recharge shield
+**[8[** Add gravity to planet that affects astronaut based on distance
+**[9]** Add shield information display for astronaut top of screen
+**[10]**When the astronaut returns to spaceship, recharge shield and pause astronaut
 **[8]** Add 1 asteroid to game 
 **[]** Asteroids damage shield
 **[10]** Add correct "round" collision control to moon and astronaut

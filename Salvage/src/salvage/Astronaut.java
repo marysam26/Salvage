@@ -11,12 +11,13 @@ public class Astronaut extends Entity {
 	private Boolean hasGear;
 	private Vector velocity;
 	
-	private final float MAX_VELOCITY = 20;
+	private final float MAX_VELOCITY = 25;
 
 	
-	public Astronaut(final float x, final float y, final float vx, final float vy){
+	public Astronaut(final float x, final float y, final float vx, final float vy,
+			Shield shield){
 		super(x,y);
-		shield = new Shield();
+		this.shield = shield;
 		hasGear = false;
 		velocity = new Vector(vx, vy);
 		addImageWithBoundingBox(ResourceManager
@@ -25,6 +26,10 @@ public class Astronaut extends Entity {
 	}
 	public Boolean hasGear(){
 		return hasGear;
+	}
+	
+	public Shield getShield(){
+		return shield;
 	}
 	
 	public void pickUp(){
@@ -45,4 +50,5 @@ public class Astronaut extends Entity {
 	public void update(final int delta) {
 		translate(velocity.scale(delta));
 	}
+	
 }
