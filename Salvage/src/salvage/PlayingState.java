@@ -57,6 +57,7 @@ public class PlayingState extends BasicGameState {
 		sg.ship.render(g);
 		sg.astronaut.render(g);
 		sg.planet.render(g);
+		sg.astronaut.getShield().render(g);
 		for( Moon m : sg.moon){
 			m.render(g);
 		}
@@ -89,6 +90,9 @@ public class PlayingState extends BasicGameState {
 				{
 			sg.astronaut.setVelocity(sg.astronaut.getVelocity().add(sg.astronaut.getVelocity().negate().scale((float)(0.001*delta))));
 		}
+		if(input.isKeyPressed(Input.KEY_S)){
+			sg.astronaut.getShield().shieldHit(1);
+		}
 		
 		for (Gear gr : sg.gear){
 			if(sg.astronaut.collides(gr) != null){
@@ -111,6 +115,7 @@ public class PlayingState extends BasicGameState {
 				}
 			}
 		}
+		
 		sg.astronaut.setVelocity(sg.astronaut.getVelocity().add(applyGravity(sg.astronaut.getX(),
 				sg.planet.getX(),sg.astronaut.getY(), sg.planet.getY(), sg.planet.getMass(), sg.planet.getDistance())));
 	
