@@ -64,12 +64,12 @@ public class PlayingState extends BasicGameState {
 		for(Gear gr : sg.gear){
 			gr.render(g);
 		}
+	
 	}
 
 	@Override
 	public void update(GameContainer container, StateBasedGame game, int delta)
-			throws SlickException {
-		// TODO Auto-generated method stub
+		 {
 		Input input = container.getInput();
 		SalvageGame sg = (SalvageGame)game;
 		
@@ -104,8 +104,9 @@ public class PlayingState extends BasicGameState {
 				gr.update(delta);
 			}
 		}
-		if(sg.astronaut.hasGear()){
-			if(sg.astronaut.collides(sg.ship)!= null){
+		
+		if(sg.astronaut.collides(sg.ship)!= null){
+			if(sg.astronaut.hasGear()){
 				numGears -=1;
 				sg.astronaut.drop();
 				for (Iterator<Gear> i = sg.gear.iterator(); i.hasNext();) {
@@ -114,8 +115,10 @@ public class PlayingState extends BasicGameState {
 					}
 				}
 			}
+			if(sg.astronaut.getShield().getShieldHealth() != 10)
+					sg.astronaut.getShield().shieldCharge();
 		}
-		
+				
 		sg.astronaut.setVelocity(sg.astronaut.getVelocity().add(applyGravity(sg.astronaut.getX(),
 				sg.planet.getX(),sg.astronaut.getY(), sg.planet.getY(), sg.planet.getMass(), sg.planet.getDistance())));
 	
