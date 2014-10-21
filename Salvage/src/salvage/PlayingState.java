@@ -4,6 +4,7 @@ import java.util.Iterator;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import jig.ResourceManager;
 import jig.Vector;
 
 import org.newdawn.slick.GameContainer;
@@ -49,6 +50,7 @@ public class PlayingState extends BasicGameState {
 	public void render(GameContainer container, StateBasedGame game, Graphics g)
 			throws SlickException {
 		SalvageGame sg = (SalvageGame)game;
+		g.drawImage(ResourceManager.getImage(SalvageGame.SPACE_SPACEIMG_RSC), 0, 0);
 		g.drawString("Playing State", 0, 10);
 		g.drawString("Gears: "+numGears, 10, 30);
 		g.drawString("Lives Remaining: "+livesLeft, 110, 30);
@@ -75,9 +77,15 @@ public class PlayingState extends BasicGameState {
 		
 		if(input.isKeyDown(Input.KEY_RIGHT)){
 			sg.astronaut.setVelocity(sg.astronaut.getVelocity().add(new Vector(-.001f,0)));
+			sg.astronaut.removeImage(ResourceManager.getImage(SalvageGame.ASTRONAUT_ASTROIMG_RSC));
+			sg.astronaut.addImageWithBoundingBox(ResourceManager.getImage(SalvageGame.ASTRONAUTL_ASTROLIMG_RSC));
+	
 		}
 		if(input.isKeyDown(Input.KEY_LEFT)){
 			sg.astronaut.setVelocity(sg.astronaut.getVelocity().add(new Vector(.001f,0)));
+			sg.astronaut.removeImage(ResourceManager.getImage(SalvageGame.ASTRONAUTL_ASTROLIMG_RSC));
+			sg.astronaut.addImageWithBoundingBox(ResourceManager.getImage(SalvageGame.ASTRONAUT_ASTROIMG_RSC));
+
 		}
 		if(input.isKeyDown(Input.KEY_UP)){
 			sg.astronaut.setVelocity(sg.astronaut.getVelocity().add(new Vector(0f,0.001f)));

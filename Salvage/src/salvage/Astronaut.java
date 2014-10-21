@@ -2,6 +2,8 @@ package salvage;
 
 
 
+
+
 import jig.Entity;
 import jig.ResourceManager;
 import jig.Vector;
@@ -21,7 +23,7 @@ public class Astronaut extends Entity {
 		hasGear = false;
 		velocity = new Vector(vx, vy);
 		addImageWithBoundingBox(ResourceManager
-				.getImage(SalvageGame.ASTRONAUTH_ASTRIMG_RSC));
+				.getImage(SalvageGame.ASTRONAUT_ASTROIMG_RSC));
 	
 	}
 	public Boolean hasGear(){
@@ -44,7 +46,16 @@ public class Astronaut extends Entity {
 	}
 	
 	public void setVelocity(Vector newVelocity){
+/*		if(newVelocity.getX() < velocity.getX()){
+			removeImage(ResourceManager.getImage(SalvageGame.ASTRONAUT_ASTROIMG_RSC));
+			addImageWithBoundingBox(ResourceManager.getImage(SalvageGame.ASTRONAUTL_ASTROLIMG_RSC));
+		}
+		else if(newVelocity.getX() > velocity.getX()){
+			removeImage(ResourceManager.getImage(SalvageGame.ASTRONAUTL_ASTROLIMG_RSC));
+			addImageWithBoundingBox(ResourceManager.getImage(SalvageGame.ASTRONAUT_ASTROIMG_RSC));
+		}*/
 		velocity = newVelocity;
+		
 	}
 	
 	public void update(final int delta) {

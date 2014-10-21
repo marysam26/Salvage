@@ -68,6 +68,9 @@ public class SalvageGame extends StateBasedGame {
 		public static final String HEALTH10_HEALTHIMG_RSC = "salvage/resources/health10.png";
 		public static final String HEALTH0_HEALTHIMG_RSC = "salvage/resources/health0.png";
 		public static final String SHIELDAN_SHIELDANIMG_RSC = "salvage/resources/ShieldAnimation.png";
+		public static final String SPACE_SPACEIMG_RSC = "salvage/resources/space.png";
+		public static final String ASTRONAUT_ASTROIMG_RSC = "salvage/resources/astronaut.PNG";
+		public static final String ASTRONAUTL_ASTROLIMG_RSC = "salvage/resources/astronautL.PNG";
 //		public static final String BANG_EXPLOSIONSND_RSC = "bounce/resource/explosion.wav";
 //		public static final String PING_EXPLOSIONSND_RSC = "bounce/resource/ping.ogg";
 //		
@@ -101,7 +104,6 @@ public class SalvageGame extends StateBasedGame {
 			AvailableLevels = levelNum;
 			currentLevel= 1;
 			Entity.setCoarseGrainedCollisionBoundary(Entity.AABB);
-		
 		}
 
 
@@ -138,6 +140,9 @@ public class SalvageGame extends StateBasedGame {
 			ResourceManager.loadImage(SHEILD_SHEILDIMG_RSC);
 			ResourceManager.getImage(SHEILD_SHEILDIMG_RSC);
 			ResourceManager.loadImage(SHIELDAN_SHIELDANIMG_RSC);
+			ResourceManager.loadImage(SPACE_SPACEIMG_RSC);
+			ResourceManager.loadImage(ASTRONAUT_ASTROIMG_RSC);
+			ResourceManager.loadImage(ASTRONAUTL_ASTROLIMG_RSC);
 			duration = 600;
 			ship = new Spaceship(ScreenWidth/2, 125);
 			Shield shield = new Shield(ScreenWidth/2 + 50, 40);
