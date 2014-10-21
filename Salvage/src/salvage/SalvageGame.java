@@ -67,6 +67,7 @@ public class SalvageGame extends StateBasedGame {
 		public static final String HEALTH9_HEALTHIMG_RSC = "salvage/resources/health9.png";
 		public static final String HEALTH10_HEALTHIMG_RSC = "salvage/resources/health10.png";
 		public static final String HEALTH0_HEALTHIMG_RSC = "salvage/resources/health0.png";
+		public static final String SHIELDAN_SHIELDANIMG_RSC = "salvage/resources/ShieldAnimation.png";
 //		public static final String BANG_EXPLOSIONSND_RSC = "bounce/resource/explosion.wav";
 //		public static final String PING_EXPLOSIONSND_RSC = "bounce/resource/ping.ogg";
 //		
@@ -135,7 +136,8 @@ public class SalvageGame extends StateBasedGame {
 			ResourceManager.loadImage(HEALTH9_HEALTHIMG_RSC);
 			ResourceManager.loadImage(HEALTH10_HEALTHIMG_RSC);
 			ResourceManager.loadImage(SHEILD_SHEILDIMG_RSC);
-			ResourceManager.getImage(SHEILD_SHEILDIMG_RSC).setAlpha(20);
+			ResourceManager.getImage(SHEILD_SHEILDIMG_RSC);
+			ResourceManager.loadImage(SHIELDAN_SHIELDANIMG_RSC);
 			duration = 600;
 			ship = new Spaceship(ScreenWidth/2, 125);
 			Shield shield = new Shield(ScreenWidth/2 + 50, 40);
