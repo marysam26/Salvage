@@ -1,7 +1,9 @@
 package salvage;
 
 
-import java.util.TimerTask;
+
+
+import jig.ResourceManager;
 
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
@@ -25,6 +27,7 @@ public class StartUpState extends BasicGameState {
 	public void render(GameContainer container, StateBasedGame game, Graphics g)
 			throws SlickException {
 		SalvageGame sg = (SalvageGame)game;
+		g.drawImage(ResourceManager.getImage(SalvageGame.SPACE_SPACEIMG_RSC), 0, 0);
 		g.drawString("STARTUP", 10, 10);
 		g.drawString("Gears: 0", 10, 30);
 		g.drawString("Lives Remaining: 3", 110, 30);
