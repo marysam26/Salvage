@@ -50,7 +50,7 @@ public class SalvageGame extends StateBasedGame {
 		public static final int GAMEOVERSTATE = 2;
 		public static final int NEXTLEVELSTATE = 3;
 //		
-		public static final String SPACESHIP_SHIPIMG_RSC = "salvage/resources/spaceBlock.png";
+		public static final String SPACESHIP_SHIPIMG_RSC = "salvage/resources/spaceShip.png";
 		public static final String ASTRONAUTH_ASTRIMG_RSC = "salvage/resources/astronautBlock.png";
 		public static final String PLANET1_PLANETIMG_RSC = "salvage/resources/Planet-11.png";
 		public static final String MOON_MOONIMG_RSC = "salvage/resources/moon.png";
