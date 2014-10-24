@@ -17,8 +17,7 @@
 **[12]** Beautify astronaut
 
 
-**[8]** Add 1 asteroid to game 
-**[]** Asteroids damage shield
+**[8]** Add 1 asteroid to game that damages astronaut
 **[10]** Add correct "round" collision control to moon and astronaut
 **[]** hitting Moon too quickly damages shield
 **[11]** Add floating state to astronaut object
