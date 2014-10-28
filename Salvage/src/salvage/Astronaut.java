@@ -13,7 +13,7 @@ public class Astronaut extends Entity {
 	private Boolean hasGear;
 	private Vector velocity;
 	
-	private final float MAX_VELOCITY = 25;
+	private final float MAX_VELOCITY = 0.25f;
 
 	
 	public Astronaut(final float x, final float y, final float vx, final float vy,
@@ -54,7 +54,8 @@ public class Astronaut extends Entity {
 			removeImage(ResourceManager.getImage(SalvageGame.ASTRONAUTL_ASTROLIMG_RSC));
 			addImageWithBoundingBox(ResourceManager.getImage(SalvageGame.ASTRONAUT_ASTROIMG_RSC));
 		}*/
-		velocity = newVelocity;
+		if(Math.abs(newVelocity.getX()) < MAX_VELOCITY && Math.abs(newVelocity.getY()) < MAX_VELOCITY)
+			velocity = newVelocity;
 		
 	}
 	

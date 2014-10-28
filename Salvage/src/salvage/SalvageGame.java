@@ -71,6 +71,7 @@ public class SalvageGame extends StateBasedGame {
 		public static final String SPACE_SPACEIMG_RSC = "salvage/resources/space.png";
 		public static final String ASTRONAUT_ASTROIMG_RSC = "salvage/resources/astronaut.PNG";
 		public static final String ASTRONAUTL_ASTROLIMG_RSC = "salvage/resources/astronautL.PNG";
+		public static final String ASTEROID_ASTEROIDIMG_RSC = "salvage/resources/asteroid1.png";
 //		public static final String BANG_EXPLOSIONSND_RSC = "bounce/resource/explosion.wav";
 //		public static final String PING_EXPLOSIONSND_RSC = "bounce/resource/ping.ogg";
 //		
@@ -85,6 +86,7 @@ public class SalvageGame extends StateBasedGame {
 		public Planet planet;
 		public ArrayList<Moon> moon;
 		public ArrayList<Gear> gear;
+		public ArrayList<Asteroid> asteroids;
 		public int duration;
 
 		/**
@@ -143,6 +145,7 @@ public class SalvageGame extends StateBasedGame {
 			ResourceManager.loadImage(SPACE_SPACEIMG_RSC);
 			ResourceManager.loadImage(ASTRONAUT_ASTROIMG_RSC);
 			ResourceManager.loadImage(ASTRONAUTL_ASTROLIMG_RSC);
+			ResourceManager.loadImage(ASTEROID_ASTEROIDIMG_RSC);
 			duration = 600;
 			ship = new Spaceship(ScreenWidth/2, 125);
 			Shield shield = new Shield(ScreenWidth/2 + 50, 40);
@@ -152,6 +155,9 @@ public class SalvageGame extends StateBasedGame {
 			moon.add(new Moon(ScreenWidth/4,ScreenHeight/2, 100));
 			gear = new ArrayList<Gear>(10);
 			gear.add(new Gear(ScreenWidth/4, ScreenHeight/2-(0.5f*moon.get(0).getCoarseGrainedWidth())-25, 0f, 0f));
+			asteroids = new ArrayList<Asteroid>(3);
+			asteroids.add(new Asteroid(0, 0, 0.1f, 0.1f));
+			asteroids.add(new Asteroid(345, 653, 0.1f, -0.1f));
 		}
 		
 		public static void main(String[] args) {
@@ -160,7 +166,7 @@ public class SalvageGame extends StateBasedGame {
 				app = new AppGameContainer(new SalvageGame("Salvage", 1280, 800, 1));
 				app.setDisplayMode(1280, 800, false);
 				app.setVSync(true);
-				app.setShowFPS(false);
+				app.setShowFPS(true);
 				app.start();
 			} catch (SlickException e) {
 				e.printStackTrace();

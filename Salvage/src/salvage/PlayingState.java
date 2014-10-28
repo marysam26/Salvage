@@ -17,6 +17,7 @@ import org.newdawn.slick.state.StateBasedGame;
 
 public class PlayingState extends BasicGameState {
 	private Timer timer;
+	private Gear heldGear;
 	private int duration;
 	private int numGears;
 	private int livesLeft;
@@ -51,7 +52,7 @@ public class PlayingState extends BasicGameState {
 			throws SlickException {
 		SalvageGame sg = (SalvageGame)game;
 		g.drawImage(ResourceManager.getImage(SalvageGame.SPACE_SPACEIMG_RSC), 0, 0);
-		g.drawString("Playing State", 0, 10);
+		//g.drawString("Playing State", 0, 10);
 		g.drawString("Gears: "+numGears, 10, 30);
 		g.drawString("Lives Remaining: "+livesLeft, 110, 30);
 		g.drawString("Time Left: "+duration/60 +":" +duration%60  , 310, 30);
@@ -65,6 +66,9 @@ public class PlayingState extends BasicGameState {
 		}
 		for(Gear gr : sg.gear){
 			gr.render(g);
+		}
+		for(Asteroid ast : sg.asteroids){
+			ast.render(g);
 		}
 	
 	}
@@ -86,24 +90,24 @@ public class PlayingState extends BasicGameState {
 		}
 		
 		if(input.isKeyDown(Input.KEY_RIGHT)){
-			sg.astronaut.setVelocity(sg.astronaut.getVelocity().add(new Vector(-.001f,0)));
+			sg.astronaut.setVelocity(sg.astronaut.getVelocity().add(new Vector(-.01f,0)));
 			sg.astronaut.removeImage(ResourceManager.getImage(SalvageGame.ASTRONAUT_ASTROIMG_RSC));
 			sg.astronaut.removeImage(ResourceManager.getImage(SalvageGame.ASTRONAUTL_ASTROLIMG_RSC));
 			sg.astronaut.addImageWithBoundingBox(ResourceManager.getImage(SalvageGame.ASTRONAUTL_ASTROLIMG_RSC));
 	
 		}
 		if(input.isKeyDown(Input.KEY_LEFT)){
-			sg.astronaut.setVelocity(sg.astronaut.getVelocity().add(new Vector(.001f,0)));
+			sg.astronaut.setVelocity(sg.astronaut.getVelocity().add(new Vector(.01f,0)));
 			sg.astronaut.removeImage(ResourceManager.getImage(SalvageGame.ASTRONAUTL_ASTROLIMG_RSC));
 			sg.astronaut.removeImage(ResourceManager.getImage(SalvageGame.ASTRONAUT_ASTROIMG_RSC));
 			sg.astronaut.addImageWithBoundingBox(ResourceManager.getImage(SalvageGame.ASTRONAUT_ASTROIMG_RSC));
 
 		}
 		if(input.isKeyDown(Input.KEY_UP)){
-			sg.astronaut.setVelocity(sg.astronaut.getVelocity().add(new Vector(0f,0.001f)));
+			sg.astronaut.setVelocity(sg.astronaut.getVelocity().add(new Vector(0f,0.01f)));
 		}
 		if(input.isKeyDown(Input.KEY_DOWN)){
-			sg.astronaut.setVelocity(sg.astronaut.getVelocity().add(new Vector(0f,-0.001f)));
+			sg.astronaut.setVelocity(sg.astronaut.getVelocity().add(new Vector(0f,-0.01f)));
 		}
 		if(!(input.isKeyDown(Input.KEY_DOWN) || input.isKeyDown(Input.KEY_UP) ||
 				input.isKeyDown(Input.KEY_LEFT) || input.isKeyDown(Input.KEY_RIGHT)))
@@ -111,24 +115,33 @@ public class PlayingState extends BasicGameState {
 			sg.astronaut.setVelocity(sg.astronaut.getVelocity().add(sg.astronaut.getVelocity().negate().scale((float)(0.001*delta))));
 		}
 		if(input.isKeyPressed(Input.KEY_S)){
-			sg.astronaut.getShield().shieldHit(1);
+			sg.astronaut.getShield().shieldHit(1, delta);
 		}
 		
 		for (Gear gr : sg.gear){
 			if(sg.astronaut.collides(gr) != null){
 				gr.pickUp();	
+				heldGear = gr;
 				sg.astronaut.pickUp();
 			}
 			if(gr.isHeld()){
 				gr.setVelocity(sg.astronaut.getVelocity());
-				gr.update(delta);
 			}
 		}
+		if(sg.astronaut.getCoarseGrainedMinX() > sg.ScreenWidth)
+			sg.astronaut.setX(-32);
+		if(sg.astronaut.getCoarseGrainedMaxY() < 0)
+			sg.astronaut.setX(sg.ScreenWidth+32);
+		/*if(ast.getCoarseGrainedMinY() > sg.ScreenHeight)
+			ast.setY(-50);
+		if(ast.getCoarseGrainedMaxY() < 0)
+			ast.setX(sg.ScreenHeight+50);*/
 		
 		if(sg.astronaut.collides(sg.ship)!= null){
 			if(sg.astronaut.hasGear()){
 				numGears -=1;
 				sg.astronaut.drop();
+				heldGear = null;
 				for (Iterator<Gear> i = sg.gear.iterator(); i.hasNext();) {
 					if (i.next().isHeld()) {
 						i.remove();
@@ -143,6 +156,30 @@ public class PlayingState extends BasicGameState {
 				sg.planet.getX(),sg.astronaut.getY(), sg.planet.getY(), sg.planet.getMass(), sg.planet.getDistance())));
 	
 		sg.astronaut.update(delta);
+		if(heldGear != null)
+			heldGear.update(delta);
+		for( Asteroid ast : sg.asteroids){
+			/*if(ast.getCoarseGrainedMinX() > sg.ScreenWidth)
+				ast.setX(-50);
+			if(ast.getCoarseGrainedMaxY() < 0)
+				ast.setX(sg.ScreenWidth+50);
+			if(ast.getCoarseGrainedMinY() > sg.ScreenHeight)
+				ast.setY(-50);
+			if(ast.getCoarseGrainedMaxY() < 0)
+				ast.setX(sg.ScreenHeight+50);*/
+			if(ast.getCoarseGrainedMinX() > sg.ScreenWidth)
+				ast.setVelocity(ast.getVelocity().negate());
+			if(ast.getCoarseGrainedMaxY() < 0)
+				ast.setVelocity(ast.getVelocity().negate());
+			if(ast.getCoarseGrainedMinY() > sg.ScreenHeight)
+				ast.setVelocity(ast.getVelocity().negate());
+			if(ast.getCoarseGrainedMaxY() < 0)
+				ast.setVelocity(ast.getVelocity().negate());
+			ast.update(delta);
+			
+			if(ast.collides(sg.astronaut) != null)
+				sg.astronaut.getShield().shieldHit(1, delta);
+		}
 	}
 	
 	public Vector applyGravity(float asPosX, float planPosX, float asPosY, float planPosY,
