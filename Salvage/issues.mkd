@@ -6,26 +6,25 @@
 **[4]** Add moon "block" on screen
 **[5]** Add gear "block" on screen
 **[6]** Enable Astronaut to pick up and move with block
-
-# Pending #
-
 **[7]** When astronaut brings gear block to space ship, gear disappears and gear count increments
 **[8[** Add gravity to planet that affects astronaut based on distance
 **[9]** Add shield information display for astronaut top of screen
 **[10]**When the astronaut returns to spaceship, recharge shield 
-**[11]** Beautify spaceshipand Beautify astronaut
-
+**[11]** Beautify spaceship and Beautify astronaut
 **[12]** Add 1 asteroid to game that damages astronaut
-**[10]** Add correct "round" collision control to moon and astronaut
+
+
+# Pending #
+
 **[]** hitting Moon too quickly damages shield
-**[11]** Add floating state to astronaut object
 **[12]** Add effect of death if astronaut falls too far into the planet's atmosphere
-**[]**Add visual representation of where gravity affects astronaut
-**[13]** Beautify spaceship
-**[14]** Add thrust animation
-**[15]** Beautify astronaut
-**[16]** Add astronaut animation
-**[17]** implement timer at top of screen 
 **[18]** Add game over state that is entered if lives = 0 or timer = 0
+**[10]** Add correct "round" collision control to moon and astronaut
+**[11]** Add floating state to astronaut object
+
+**[]**Add visual representation of where gravity affects astronaut
+**[14]** Add thrust animation
+**[16]** Add astronaut animation
+
 
 
