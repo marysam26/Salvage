@@ -2,13 +2,15 @@ package salvage;
 
 import org.newdawn.slick.Animation;
 
+
 import jig.Entity;
 import jig.ResourceManager;
 
 public class Shield extends Entity {
 	private int health;
 	private Animation recharge;
-	
+	private int countdown;
+
 	public Shield(final float x, final float y){
 		super(x,y);
 		health = 10;
@@ -16,21 +18,30 @@ public class Shield extends Entity {
 				.getImage("salvage/resources/health10.png"));
 		addImageWithBoundingBox(ResourceManager
 				.getImage(SalvageGame.SHEILD_SHEILDIMG_RSC));
-	
+		countdown = 0;
 	}
 	
-	public void shieldHit(int damage){
-		if (recharge != null && recharge.isStopped()){
-			removeAnimation(recharge);
-			recharge = null;
+	public void shieldHit(int damage, int delta){
+		if (countdown > 0) {
+			countdown -= delta;
 		}
-		else
-			removeImage(ResourceManager.getImage("salvage/resources/health"+health+".png"));
-		health -= damage;
-		if (health == -1){
-			health = 10;
-		}
-		addImageWithBoundingBox(ResourceManager.getImage("salvage/resources/health"+health+".png"));
+			if (countdown <= 0) {
+
+				if (recharge != null && recharge.isStopped()){
+					removeAnimation(recharge);
+					recharge = null;
+				}
+				else
+					removeImage(ResourceManager.getImage("salvage/resources/health"+health+".png"));
+				health -= damage;
+				if (health == -1){
+					health = 10;
+				}
+				addImageWithBoundingBox(ResourceManager.getImage("salvage/resources/health"+health+".png"));
+				countdown = 500;
+			}
+		
+		return;
 	}
 	
 	public int getShieldHealth(){

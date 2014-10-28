@@ -13,11 +13,9 @@
 **[8[** Add gravity to planet that affects astronaut based on distance
 **[9]** Add shield information display for astronaut top of screen
 **[10]**When the astronaut returns to spaceship, recharge shield 
-**[11]** Beautify spaceship
-**[12]** Beautify astronaut
+**[11]** Beautify spaceshipand Beautify astronaut
 
-
-**[8]** Add 1 asteroid to game that damages astronaut
+**[12]** Add 1 asteroid to game that damages astronaut
 **[10]** Add correct "round" collision control to moon and astronaut
 **[]** hitting Moon too quickly damages shield
 **[11]** Add floating state to astronaut object

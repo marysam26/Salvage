@@ -157,6 +157,7 @@ public class SalvageGame extends StateBasedGame {
 			gear.add(new Gear(ScreenWidth/4, ScreenHeight/2-(0.5f*moon.get(0).getCoarseGrainedWidth())-25, 0f, 0f));
 			asteroids = new ArrayList<Asteroid>(3);
 			asteroids.add(new Asteroid(0, 0, 0.1f, 0.1f));
+			asteroids.add(new Asteroid(345, 653, 0.1f, -0.1f));
 		}
 		
 		public static void main(String[] args) {
