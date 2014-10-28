@@ -21,12 +21,14 @@ public class PlayingState extends BasicGameState {
 	private int duration;
 	private int numGears;
 	private int livesLeft;
+	private boolean isFloating;
 	
 	@Override
 	public void init(GameContainer container, StateBasedGame game)
 			throws SlickException {
 		// TODO Auto-generated method stub
 		timer = new Timer();
+		isFloating = true;
 	}
 	public void setGears(int gears){
 		numGears = gears;
@@ -117,6 +119,13 @@ public class PlayingState extends BasicGameState {
 		if(input.isKeyPressed(Input.KEY_S)){
 			sg.astronaut.getShield().shieldHit(1, delta);
 		}
+		for(Moon mn : sg.moon)
+			if(sg.astronaut.collides(mn) != null){
+				if(sg.astronaut.getVelocity().length() > 0.25)
+					sg.astronaut.getShield().shieldHit(1, delta);
+				else
+					isFloating = false;
+			}
 		
 		for (Gear gr : sg.gear){
 			if(sg.astronaut.collides(gr) != null){
