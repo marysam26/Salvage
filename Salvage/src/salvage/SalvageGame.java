@@ -72,6 +72,8 @@ public class SalvageGame extends StateBasedGame {
 		public static final String ASTRONAUT_ASTROIMG_RSC = "salvage/resources/astronaut.PNG";
 		public static final String ASTRONAUTL_ASTROLIMG_RSC = "salvage/resources/astronautL.PNG";
 		public static final String ASTEROID_ASTEROIDIMG_RSC = "salvage/resources/asteroid1.png";
+		public static final String GAMEOVER_BANNER_RSC = "salvage/resources/gameover.png";
+		public static final String WINNER_BANNER_RSC = "salvage/resources/youWin.png";
 //		public static final String BANG_EXPLOSIONSND_RSC = "bounce/resource/explosion.wav";
 //		public static final String PING_EXPLOSIONSND_RSC = "bounce/resource/ping.ogg";
 //		
@@ -112,7 +114,7 @@ public class SalvageGame extends StateBasedGame {
 		@Override
 		public void initStatesList(GameContainer container) throws SlickException {
 			addState(new StartUpState());
-			//addState(new GameOverState());
+			addState(new GameOverState());
 			addState(new PlayingState());
 			//addState(new NextLevelState());*/
 			
@@ -146,7 +148,9 @@ public class SalvageGame extends StateBasedGame {
 			ResourceManager.loadImage(ASTRONAUT_ASTROIMG_RSC);
 			ResourceManager.loadImage(ASTRONAUTL_ASTROLIMG_RSC);
 			ResourceManager.loadImage(ASTEROID_ASTEROIDIMG_RSC);
-			duration = 600;
+			ResourceManager.loadImage(GAMEOVER_BANNER_RSC);
+			ResourceManager.loadImage(WINNER_BANNER_RSC);
+			duration = 60;
 			ship = new Spaceship(ScreenWidth/2, 125);
 			Shield shield = new Shield(ScreenWidth/2 + 50, 40);
 			astronaut = new Astronaut(ScreenWidth/2, ScreenHeight/2, 0f, 0f, shield);
