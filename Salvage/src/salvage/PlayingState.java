@@ -211,7 +211,23 @@ public class PlayingState extends BasicGameState {
 				((GameOverState)game.getState(SalvageGame.GAMEOVERSTATE)).setUserTimer(1);
 				sg.enterState(SalvageGame.GAMEOVERSTATE);	
 			}
+			if(sg.astronaut.getCoarseGrainedMinY() > sg.planet.getCoarseGrainedMinY()){
+				if(withinDistance(sg.astronaut, sg.planet.getPosition(), sg.planet.getCoarseGrainedWidth()/2)){
+				livesLeft--;
+				sg.astronaut.setPosition(new Vector(sg.ScreenWidth/2,sg.ScreenHeight/2));
+				}
+			}
 		}
+	}
+	
+	public boolean withinDistance(Astronaut astro, Vector planet, float radius){
+		
+		float x = astro.getX() - planet.getX();
+		float y = astro.getCoarseGrainedMinY() - planet.getY();
+		double distance= Math.sqrt(x*x + y*y);
+		if(distance <= radius)
+			return true;
+		return false;
 	}
 	
 	public Vector applyGravity(float asPosX, float planPosX, float asPosY, float planPosY,

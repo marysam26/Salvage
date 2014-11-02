@@ -53,8 +53,8 @@ class GameOverState extends BasicGameState {
 		SalvageGame sg = (SalvageGame)game;
 		sg.currentLevel = 1;
 		if(lastKnownLives == 0 || lastKnownTime == 0){
-		g.drawImage(ResourceManager.getImage(SalvageGame.GAMEOVER_BANNER_RSC), 225,
-				270);
+		g.drawImage(ResourceManager.getImage(SalvageGame.GAMEOVER_BANNER_RSC), 0,
+				0);
 		}
 		else{
 			g.drawImage(ResourceManager.getImage(SalvageGame.WINNER_BANNER_RSC), 0,

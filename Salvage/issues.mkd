@@ -16,10 +16,11 @@
 **[14]** Add game over state that is entered if lives = 0 or timer = 0
 **[15]** Add start screen with instructions
 
+
 # Pending #
 
+**[16]** Add effect of death if astronaut falls too far into the planet's atmosphere
 
-**[12]** Add effect of death if astronaut falls too far into the planet's atmosphere
 **[10]** Add correct "round" collision control to moon and astronaut
 **[11]** Add floating state to astronaut object
 

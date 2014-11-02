@@ -73,7 +73,7 @@ public class SalvageGame extends StateBasedGame {
 		public static final String ASTRONAUTL_ASTROLIMG_RSC = "salvage/resources/astronautL.PNG";
 		public static final String ASTEROID_ASTEROIDIMG_RSC = "salvage/resources/asteroid1.png";
 		public static final String GAMEOVER_BANNER_RSC = "salvage/resources/gameover.png";
-		public static final String WINNER_BANNER_RSC = "salvage/resources/youwin.png";
+		public static final String WINNER_BANNER_RSC = "salvage/resources/youWin.png";
 		public static final String START_BANNER_RSC = "salvage/resources/startscreen.png";
 		public static final String INSTRUCT_BANNER_RSC = "salvage/resources/instructions.png";
 //		public static final String BANG_EXPLOSIONSND_RSC = "bounce/resource/explosion.wav";
@@ -173,7 +173,7 @@ public class SalvageGame extends StateBasedGame {
 			try {
 				app = new AppGameContainer(new SalvageGame("Salvage", 1280, 800, 1));
 				app.setDisplayMode(1280, 800, false);
-				app.setVSync(true);
+				app.setVSync(false);
 				app.setShowFPS(true);
 				app.start();
 			} catch (SlickException e) {
