@@ -22,13 +22,14 @@ public class PlayingState extends BasicGameState {
 	private int numGears;
 	private int livesLeft;
 	private boolean isFloating;
-	
+	private boolean timesUp;
 	@Override
 	public void init(GameContainer container, StateBasedGame game)
 			throws SlickException {
 		// TODO Auto-generated method stub
 		timer = new Timer();
 		isFloating = true;
+		timesUp = false;
 	}
 	public void setGears(int gears){
 		numGears = gears;
@@ -42,8 +43,10 @@ public class PlayingState extends BasicGameState {
         timer.scheduleAtFixedRate(new TimerTask() {
             public void run() {
             	duration--;
-                if (duration< 0)
+                if (duration< 0){
                     timer.cancel();
+                    timesUp  = true;	
+                }
             }
         }, 0, 1000);
 	}
@@ -188,6 +191,26 @@ public class PlayingState extends BasicGameState {
 			
 			if(ast.collides(sg.astronaut) != null)
 				sg.astronaut.getShield().shieldHit(1, delta);
+			
+			if(sg.astronaut.getShield().getShieldHealth() == 0){
+				livesLeft--;
+			sg.astronaut.getShield().shieldCharge();
+			
+			}
+			
+			if(livesLeft == 0){
+				((GameOverState)game.getState(SalvageGame.GAMEOVERSTATE)).setUserLive(livesLeft);
+				sg.enterState(SalvageGame.GAMEOVERSTATE);	
+			}
+			if(timesUp){
+				((GameOverState)game.getState(SalvageGame.GAMEOVERSTATE)).setUserTimer(0);
+				sg.enterState(SalvageGame.GAMEOVERSTATE);	
+			}
+			if(numGears == 0 && sg.currentLevel == sg.AvailableLevels){
+				((GameOverState)game.getState(SalvageGame.GAMEOVERSTATE)).setUserLive(livesLeft);
+				((GameOverState)game.getState(SalvageGame.GAMEOVERSTATE)).setUserTimer(1);
+				sg.enterState(SalvageGame.GAMEOVERSTATE);	
+			}
 		}
 	}
 	
