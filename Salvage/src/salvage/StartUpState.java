@@ -14,36 +14,26 @@ import org.newdawn.slick.state.StateBasedGame;
 
 
 public class StartUpState extends BasicGameState {
-
+private boolean readingInstruct; 
 	
 	@Override
 	public void init(GameContainer container, StateBasedGame game)
 			throws SlickException {
 		// TODO Auto-generated method stub
+		readingInstruct = false;
 		
 	}
 
 	@Override
 	public void render(GameContainer container, StateBasedGame game, Graphics g)
 			throws SlickException {
-		SalvageGame sg = (SalvageGame)game;
-		g.drawImage(ResourceManager.getImage(SalvageGame.SPACE_SPACEIMG_RSC), 0, 0);
-		g.drawString("STARTUP", 10, 10);
-		g.drawString("Gears: 0", 10, 30);
-		g.drawString("Lives Remaining: 3", 110, 30);
-		g.drawString("Time Left: "+sg.duration/60 +":" +sg.duration%60  , 310, 30);
-		g.drawString("Shield", 500, 30);
-		sg.ship.render(g);
-		sg.astronaut.render(g);
-		sg.planet.render(g);
-		sg.astronaut.getShield().render(g);
-		for( Moon m : sg.moon){
-			m.render(g);
+		if(readingInstruct){
+			g.drawImage(ResourceManager.getImage(SalvageGame.INSTRUCT_BANNER_RSC), 0, 0);
 		}
-	
-		for(Gear gr : sg.gear){
-			gr.render(g);
+		else{
+			g.drawImage(ResourceManager.getImage(SalvageGame.START_BANNER_RSC), 0, 0);
 		}
+		
 	}
 
 	@Override
@@ -74,7 +64,11 @@ public class StartUpState extends BasicGameState {
 			bg.currentLevel = 5;
 			startGame = true;
 		}*/
-		if (input.isKeyDown(Input.KEY_SPACE)){
+		
+		if(input.isKeyPressed(Input.KEY_I)){
+			readingInstruct = !readingInstruct;
+		}
+		if (input.isKeyPressed(Input.KEY_SPACE) && !readingInstruct){
 			startGame = true;
 		}
 		if(startGame){
