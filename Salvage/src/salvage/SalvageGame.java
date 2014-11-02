@@ -73,7 +73,9 @@ public class SalvageGame extends StateBasedGame {
 		public static final String ASTRONAUTL_ASTROLIMG_RSC = "salvage/resources/astronautL.PNG";
 		public static final String ASTEROID_ASTEROIDIMG_RSC = "salvage/resources/asteroid1.png";
 		public static final String GAMEOVER_BANNER_RSC = "salvage/resources/gameover.png";
-		public static final String WINNER_BANNER_RSC = "salvage/resources/youWin.png";
+		public static final String WINNER_BANNER_RSC = "salvage/resources/youwin.png";
+		public static final String START_BANNER_RSC = "salvage/resources/startscreen.png";
+		public static final String INSTRUCT_BANNER_RSC = "salvage/resources/instructions.png";
 //		public static final String BANG_EXPLOSIONSND_RSC = "bounce/resource/explosion.wav";
 //		public static final String PING_EXPLOSIONSND_RSC = "bounce/resource/ping.ogg";
 //		
@@ -150,6 +152,8 @@ public class SalvageGame extends StateBasedGame {
 			ResourceManager.loadImage(ASTEROID_ASTEROIDIMG_RSC);
 			ResourceManager.loadImage(GAMEOVER_BANNER_RSC);
 			ResourceManager.loadImage(WINNER_BANNER_RSC);
+			ResourceManager.loadImage(START_BANNER_RSC);
+			ResourceManager.loadImage(INSTRUCT_BANNER_RSC);
 			duration = 60;
 			ship = new Spaceship(ScreenWidth/2, 125);
 			Shield shield = new Shield(ScreenWidth/2 + 50, 40);
