@@ -18,13 +18,14 @@ import org.newdawn.slick.state.StateBasedGame;
 
 public class PlayingState extends BasicGameState {
 	private Timer timer;
-	private Gear heldGear;
 	private int duration;
 	private int numGears;
 	private int livesLeft;
 	private boolean isFloating;
 	private boolean timesUp;
 	private Moon moon;
+	private boolean astroCharge;
+	private int countDown;
 	@Override
 	public void init(GameContainer container, StateBasedGame game)
 			throws SlickException {
@@ -32,6 +33,7 @@ public class PlayingState extends BasicGameState {
 		//timer = new Timer();
 		isFloating = true;
 		timesUp = false;
+		astroCharge = false;
 	}
 	public void setGears(int gears){
 		numGears = gears;
@@ -92,6 +94,16 @@ public class PlayingState extends BasicGameState {
 		 {
 		Input input = container.getInput();
 		SalvageGame sg = (SalvageGame)game;
+		if(astroCharge){
+			if(countDown <= 0){
+				astroCharge = false;
+				sg.astronaut.setVelocity(new Vector(0f, 0.1f));
+				sg.astronaut.update(delta);
+			}
+			else
+				countDown -= delta;
+		}
+		if(!astroCharge){
 		if(isFloating){		
 			if(sg.astronaut.hasGear()){
 				if(input.isKeyDown(Input.KEY_LEFT) && input.isKeyDown(Input.KEY_RIGHT)){
@@ -192,23 +204,23 @@ public class PlayingState extends BasicGameState {
 			}
 							
 		}
-		
-		if(input.isKeyPressed(Input.KEY_S)){
-			sg.astronaut.getShield().shieldHit(1, delta);
-		}
+
 		if(isFloating){
 			for(Moon mn : sg.moon)
 				if(sg.astronaut.collides(mn) != null){
-					if(sg.astronaut.getVelocity().length() > 0.25)
-						sg.astronaut.getShield().shieldHit(1, delta);
-					else
+					if(sg.astronaut.getVelocity().length() > 0.20){
+						sg.astronaut.getShield().shieldHit(1, 250);
+						sg.astronaut.setVelocity(sg.astronaut.getVelocity().negate());
+					}
 						if(withinDistance(sg.astronaut, mn.getPosition(), mn.getCoarseGrainedWidth()/2, true)){
+							if(sg.astronaut.getVelocity().length() > 0.20){
+								sg.astronaut.getShield().shieldHit(1, 250);
+								sg.astronaut.setVelocity(sg.astronaut.getVelocity().negate());
+							}
+							else{
 							isFloating = false;
 							moon = mn;
 							double theta = (Math.toDegrees( Math.atan2(((double)sg.astronaut.getY()-moon.getY()), (double)((moon.getX()-sg.astronaut.getX() )))) + 360.0) % 360.0;
-							//double theta = ((Math.atan2((double)((sg.astronaut.getY()-moon.getY())), (double)((sg.astronaut.getX()-moon.getX())))*(180)));
-			/*				if(sg.astronaut.getY() > (mn.getY() + mn.getCoarseGrainedHeight()/2) )
-								theta = theta+180;*/
 							sg.astronaut.setTheta(theta);
 							float orbit = 
 									(float) Math.sqrt((sg.astronaut.getX()-(moon.getX()))*
@@ -218,6 +230,7 @@ public class PlayingState extends BasicGameState {
 							sg.astronaut.setOrbit(orbit);
 						}
 				}
+		}
 		}
 		
 		if(!sg.astronaut.hasGear() && !isFloating){
@@ -249,18 +262,23 @@ public class PlayingState extends BasicGameState {
 			sg.astronaut.setY(sg.ScreenHeight-32);
 		
 		if(sg.astronaut.collides(sg.ship)!= null){
-			if(sg.astronaut.hasGear()){
-				numGears -=1;
-				sg.astronaut.drop();
-				heldGear = null;
-				for (Iterator<Gear> i = sg.gear.iterator(); i.hasNext();) {
-					if (i.next().isHeld()) {
-						i.remove();
+			if(withinShipDistance(sg.astronaut, sg.ship.getPosition())){
+				astroCharge = true;
+				sg.astronaut.setVelocity(new Vector(0f, 0f));
+				countDown = 500;
+				if(sg.astronaut.hasGear()){
+					numGears -=1;
+					sg.astronaut.drop();
+					
+					for (Iterator<Gear> i = sg.gear.iterator(); i.hasNext();) {
+						if (i.next().isHeld()) {
+							i.remove();
+						}
 					}
 				}
-			}
-			if(sg.astronaut.getShield().getShieldHealth() != 10)
+				if(sg.astronaut.getShield().getShieldHealth() != 10)
 					sg.astronaut.getShield().shieldCharge();
+			}
 		}
 		if(isFloating){		
 		sg.astronaut.setVelocity(sg.astronaut.getVelocity().add(applyGravity(sg.astronaut.getX(),
@@ -271,14 +289,6 @@ public class PlayingState extends BasicGameState {
 		}
 
 		for( Asteroid ast : sg.asteroids){
-			/*if(ast.getCoarseGrainedMinX() > sg.ScreenWidth)
-				ast.setX(-50);
-			if(ast.getCoarseGrainedMaxY() < 0)
-				ast.setX(sg.ScreenWidth+50);
-			if(ast.getCoarseGrainedMinY() > sg.ScreenHeight)
-				ast.setY(-50);
-			if(ast.getCoarseGrainedMaxY() < 0)
-				ast.setX(sg.ScreenHeight+50);*/
 			Vector currVelocity = ast.getVelocity();
 			if(ast.getCoarseGrainedMinX() > sg.ScreenWidth)
 				ast.setVelocity(new Vector(-currVelocity.getX(), currVelocity.getY()));
@@ -291,14 +301,14 @@ public class PlayingState extends BasicGameState {
 			ast.update(delta);
 			
 			if(ast.collides(sg.astronaut) != null)
-				sg.astronaut.getShield().shieldHit(1, delta);
+				sg.astronaut.getShield().shieldHit(2, delta);
 			
-			if(sg.astronaut.getShield().getShieldHealth() == 0){
+			if(sg.astronaut.getShield().getShieldHealth() <= 0){
 				livesLeft--;
 				sg.astronaut.getShield().shieldCharge();
 			
 			}
-			
+		}
 			if(livesLeft == 0){
 				((GameOverState)game.getState(SalvageGame.GAMEOVERSTATE)).setUserLive(livesLeft);
 				sg.enterState(SalvageGame.GAMEOVERSTATE);	
@@ -315,7 +325,7 @@ public class PlayingState extends BasicGameState {
 			if(sg.astronaut.getCoarseGrainedMinY() > sg.planet.getCoarseGrainedMinY()){
 				if(withinDistance(sg.astronaut, sg.planet.getPosition(), sg.planet.getCoarseGrainedWidth()/2, false)){
 				livesLeft--;
-				sg.astronaut.getShield().shieldHit(1, delta);
+				sg.astronaut.getShield().shieldHit(4, delta);
 				sg.astronaut.setPosition(new Vector(sg.ScreenWidth/2,sg.ScreenHeight/4));
 				}
 			}
@@ -361,6 +371,15 @@ public class PlayingState extends BasicGameState {
 			}
 		
 		}
+	}
+	
+	public boolean withinShipDistance(Astronaut astro, Vector ship){
+		float x = astro.getX() - ship.getX();
+		float y = astro.getY() - ship.getY();
+		double distance= Math.sqrt(x*x + y*y);
+		if(distance <= 30)
+			return true;
+		return false;
 	}
 	
 	public boolean withinDistance(Astronaut astro, Vector planet, float radius, boolean moon){

@@ -25,22 +25,19 @@ public class Shield extends Entity {
 		if (countdown > 0) {
 			countdown -= delta;
 		}
-			if (countdown <= 0) {
+		if (countdown <= 0) {
 
-				if (recharge != null && recharge.isStopped()){
-					removeAnimation(recharge);
-					recharge = null;
-				}
-				else
-					removeImage(ResourceManager.getImage("salvage/resources/health"+health+".png"));
-				health -= damage;
-				if (health == -1){
-					health = 10;
-				}
-				addImageWithBoundingBox(ResourceManager.getImage("salvage/resources/health"+health+".png"));
-				countdown = 500;
+			if (recharge != null && recharge.isStopped()){
+				removeAnimation(recharge);
+				recharge = null;
 			}
-		
+			else
+				removeImage(ResourceManager.getImage("salvage/resources/health"+health+".png"));
+			health -= damage;
+			addImageWithBoundingBox(ResourceManager.getImage("salvage/resources/health"+health+".png"));
+			countdown = 500;
+		}
+
 		return;
 	}
 	
