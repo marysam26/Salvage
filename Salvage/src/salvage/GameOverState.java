@@ -74,7 +74,7 @@ class GameOverState extends BasicGameState {
 			sg.duration = 60;
 			sg.ship = new Spaceship(sg.ScreenWidth/2, 125);
 			Shield shield = new Shield(sg.ScreenWidth/2 + 50, 40);
-			sg.astronaut = new Astronaut(sg.ScreenWidth/2, sg.ScreenHeight/2, 0f, 0f, shield);
+			sg.astronaut = new Astronaut(sg.ScreenWidth/4, sg.ScreenHeight/2, 0f, 0f, shield);
 			sg.planet = new Planet(sg.ScreenWidth/2, (1.5f)*sg.ScreenHeight, 1, 1000, 600);
 			sg.moon = new ArrayList<Moon>(10);
 			sg.moon.add(new Moon(sg.ScreenWidth/4,sg.ScreenHeight/2, 100));
