@@ -79,7 +79,8 @@ public class SalvageGame extends StateBasedGame {
 		public static final String ASTROG_BANNER_RSC = "salvage/resources/astronautGear.png";
 		public static final String ASTROGL_BANNER_RSC = "salvage/resources/astronautLGear.png";
 //		public static final String BANG_EXPLOSIONSND_RSC = "bounce/resource/explosion.wav";
-//		public static final String PING_EXPLOSIONSND_RSC = "bounce/resource/ping.ogg";
+		public static final String MUSIC_MUSICSND_RSC = "salvage/resources/backgroundmusic.ogg";
+
 //		
 		
 		public final int ScreenWidth;
@@ -127,7 +128,7 @@ public class SalvageGame extends StateBasedGame {
 			// and (2) because loading it will load the audio libraries and
 			// unless that is done now, we can't *disable* sound as we
 			// attempt to do in the startUp() method.
-		//	ResourceManager.loadSound(BANG_EXPLOSIONSND_RSC);		
+			ResourceManager.loadSound(MUSIC_MUSICSND_RSC);		
 
 			// preload all the resources to avoid warnings & minimize latency...
 			ResourceManager.loadImage(SPACESHIP_SHIPIMG_RSC);
@@ -164,7 +165,7 @@ public class SalvageGame extends StateBasedGame {
 			duration = 60;
 			ship = new Spaceship(ScreenWidth/2, 125);
 			Shield shield = new Shield(ScreenWidth/2 + 50, 40);
-			astronaut = new Astronaut(ScreenWidth/2, ScreenHeight/2, 0f, 0f, shield);
+			astronaut = new Astronaut(ScreenWidth/2, ScreenHeight/4, 0f, 0f, shield);
 			planet = new Planet(ScreenWidth/2, (1.5f)*ScreenHeight, 1, 1000, 600);
 			moon = new ArrayList<Moon>(10);
 			moon.add(new Moon(ScreenWidth/4,ScreenHeight/2, 100));

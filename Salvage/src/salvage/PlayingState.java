@@ -34,6 +34,7 @@ public class PlayingState extends BasicGameState {
 		isFloating = true;
 		timesUp = false;
 		astroCharge = false;
+		ResourceManager.getSound(SalvageGame.MUSIC_MUSICSND_RSC).loop();
 	}
 	public void setGears(int gears){
 		numGears = gears;
@@ -97,6 +98,7 @@ public class PlayingState extends BasicGameState {
 		if(astroCharge){
 			if(countDown <= 0){
 				astroCharge = false;
+				sg.astronaut.setY(sg.astronaut.getY()+40);
 				sg.astronaut.setVelocity(new Vector(0f, 0.1f));
 				sg.astronaut.update(delta);
 			}
@@ -107,6 +109,7 @@ public class PlayingState extends BasicGameState {
 		if(isFloating){		
 			if(sg.astronaut.hasGear()){
 				if(input.isKeyDown(Input.KEY_LEFT) && input.isKeyDown(Input.KEY_RIGHT)){
+				
 					sg.astronaut.removeImage(ResourceManager.getImage(SalvageGame.ASTROG_BANNER_RSC));
 					sg.astronaut.removeImage(ResourceManager.getImage(SalvageGame.ASTROGL_BANNER_RSC));
 					if(sg.astronaut.getVelocity().getX() > sg.astronaut.getVelocity().getY()){
@@ -118,6 +121,7 @@ public class PlayingState extends BasicGameState {
 				}
 
 				if(input.isKeyDown(Input.KEY_RIGHT)){
+
 					sg.astronaut.setVelocity(sg.astronaut.getVelocity().add(new Vector(-.01f,0)));
 					sg.astronaut.removeImage(ResourceManager.getImage(SalvageGame.ASTROG_BANNER_RSC));
 					sg.astronaut.removeImage(ResourceManager.getImage(SalvageGame.ASTROGL_BANNER_RSC));
@@ -208,10 +212,6 @@ public class PlayingState extends BasicGameState {
 		if(isFloating){
 			for(Moon mn : sg.moon)
 				if(sg.astronaut.collides(mn) != null){
-					if(sg.astronaut.getVelocity().length() > 0.20){
-						sg.astronaut.getShield().shieldHit(1, 250);
-						sg.astronaut.setVelocity(sg.astronaut.getVelocity().negate());
-					}
 						if(withinDistance(sg.astronaut, mn.getPosition(), mn.getCoarseGrainedWidth()/2, true)){
 							if(sg.astronaut.getVelocity().length() > 0.20){
 								sg.astronaut.getShield().shieldHit(1, 250);
@@ -228,6 +228,7 @@ public class PlayingState extends BasicGameState {
 									(sg.astronaut.getY()-(moon.getY()))*
 									(sg.astronaut.getY()-(moon.getY())));
 							sg.astronaut.setOrbit(orbit);
+							sg.astronaut.updateTheta(mn.getX(), mn.getY(), true);
 						}
 				}
 		}
@@ -330,18 +331,21 @@ public class PlayingState extends BasicGameState {
 				}
 			}
 			if((numGears == 0 && sg.currentLevel == 1) || input.isKeyPressed(Input.KEY_2)){
-				sg.duration = 60;
+				sg.duration = 90;
 				sg.planet = new Planet(sg.ScreenWidth/2, (1.5f)*sg.ScreenHeight, 2, 2000, 1200);
 				sg.moon = new ArrayList<Moon>(10);
 				sg.moon.add(new Moon(sg.ScreenWidth/2, sg.ScreenHeight/2, 100));
 				sg.moon.add(new Moon(sg.ScreenWidth/4,sg.ScreenHeight/2, 100));
+				sg.moon.add(new Moon(3*sg.ScreenWidth/4,sg.ScreenHeight/2, 100));
 				sg.gear = new ArrayList<Gear>(10);
+				sg.gear.add(new Gear(3*sg.ScreenWidth/4+(0.5f*sg.moon.get(0).getCoarseGrainedWidth()), sg.ScreenHeight/2+(0.5f*sg.moon.get(0).getCoarseGrainedWidth())+12, 0f, 0f));
 				sg.gear.add(new Gear(sg.ScreenWidth/4, sg.ScreenHeight/2+(0.5f*sg.moon.get(0).getCoarseGrainedWidth())+25, 0f, 0f));
 				sg.gear.add(new Gear(sg.ScreenWidth/4, sg.ScreenHeight/2-(0.5f*sg.moon.get(0).getCoarseGrainedWidth())-25, 0f, 0f));
 				sg.gear.add(new Gear(sg.ScreenWidth/2, sg.ScreenHeight/2+(0.5f*sg.moon.get(1).getCoarseGrainedWidth())+25, 0f, 0f));
 				sg.asteroids = new ArrayList<Asteroid>(3);
 				sg.asteroids.add(new Asteroid(44, 342, -0.1f, 0.1f));
 				sg.asteroids.add(new Asteroid(345, 653, 0.1f, -0.1f));
+				sg.asteroids.add(new Asteroid(45, 453, -0.1f, -0.1f));
 				sg.currentLevel++;
 				((PlayingState)game.getState(SalvageGame.PLAYINGSTATE)).stopTimer();
 				((PlayingState)game.getState(SalvageGame.PLAYINGSTATE)).setTimer(sg.duration);
@@ -349,20 +353,27 @@ public class PlayingState extends BasicGameState {
 				((PlayingState)game.getState(SalvageGame.PLAYINGSTATE)).setLives(livesLeft);
 			}
 			if(numGears == 0 && sg.currentLevel == 2|| input.isKeyPressed(Input.KEY_3) ){
-				sg.duration = 60;
+				sg.duration = 120;
 				sg.planet = new Planet(sg.ScreenWidth/2, (1.5f)*sg.ScreenHeight, 3, 3000, 1800);
 				sg.moon = new ArrayList<Moon>(10);
 				sg.moon.add(new Moon(sg.ScreenWidth/4, 3*sg.ScreenHeight/4, 100));
 				sg.moon.add(new Moon(sg.ScreenWidth/4 -50 ,50+sg.ScreenHeight/4, 100));
-				sg.moon.add(new Moon(3*sg.ScreenWidth/4,sg.ScreenHeight/2, 100));
+				sg.moon.add(new Moon(3*sg.ScreenWidth/4,3*sg.ScreenHeight/4, 100));
+				sg.moon.add(new Moon(3*sg.ScreenWidth/4, sg.ScreenHeight/4, 100));
 				sg.gear = new ArrayList<Gear>(10);
 				sg.gear.add(new Gear(sg.ScreenWidth/4, 50+sg.ScreenHeight/4-(0.5f*sg.moon.get(0).getCoarseGrainedWidth())-25, 0f, 0f));
-				sg.gear.add(new Gear(3*sg.ScreenWidth/4+(0.5f*sg.moon.get(0).getCoarseGrainedWidth())-50, sg.ScreenHeight/2+(0.5f*sg.moon.get(0).getCoarseGrainedWidth())+12, 0f, 0f));
+				sg.gear.add(new Gear(3*sg.ScreenWidth/4+(0.5f*sg.moon.get(0).getCoarseGrainedWidth())-50, 3*sg.ScreenHeight/4+(0.5f*sg.moon.get(0).getCoarseGrainedWidth())+12, 0f, 0f));
 				sg.gear.add(new Gear(sg.ScreenWidth/4+(0.5f*sg.moon.get(0).getCoarseGrainedWidth())+25, 3*sg.ScreenHeight/4, 0f, 0f));
-				sg.asteroids = new ArrayList<Asteroid>(3);
+				sg.gear.add(new Gear(3*sg.ScreenWidth/4+(0.5f*sg.moon.get(0).getCoarseGrainedWidth())+25, sg.ScreenHeight/4, 0f, 0f));
+				sg.gear.add(new Gear(sg.ScreenWidth/4-(0.5f*sg.moon.get(0).getCoarseGrainedWidth())-25, 50+sg.ScreenHeight/4-(0.5f*sg.moon.get(0).getCoarseGrainedWidth())-25, 0f, 0f));
+				sg.gear.add(new Gear(3*sg.ScreenWidth/4+(0.5f*sg.moon.get(0).getCoarseGrainedWidth())+12, sg.ScreenHeight/4 + (0.5f*sg.moon.get(0).getCoarseGrainedWidth())+12, 0f, 0f));
+				sg.asteroids = new ArrayList<Asteroid>(6);
 				sg.asteroids.add(new Asteroid(49, 495, 0.4f, 0.1f));
-				sg.asteroids.add(new Asteroid(345, 653, 0.1f, -0.3f));
+				sg.asteroids.add(new Asteroid(345, 653, 0.2f, -0.3f));
 				sg.asteroids.add(new Asteroid(394, 1000, 0.2f, 0.2f));
+				sg.asteroids.add(new Asteroid(444, 23, 0.4f, 0.1f));
+				sg.asteroids.add(new Asteroid(435, 653, -0.1f, -0.3f));
+				sg.asteroids.add(new Asteroid(655, 645, 0.2f, 0.2f));
 				sg.currentLevel++;
 				((PlayingState)game.getState(SalvageGame.PLAYINGSTATE)).stopTimer();
 				((PlayingState)game.getState(SalvageGame.PLAYINGSTATE)).setTimer(sg.duration);

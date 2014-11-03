@@ -19,10 +19,11 @@
 **[17]** Add correct "round" collision control to moon and astronaut
 **[18]** Add level 2 and 3
 **[19]** Reinforce bounds of screen so astronaut/asteroids don't drift offscreen
+**[20]** Correct collision with rocket ship 
 
 # Pending #
 
-**[20]** Correct collision with rocket ship 
+**[21]** Fix minor bugs and finalize level design
 
 
 
