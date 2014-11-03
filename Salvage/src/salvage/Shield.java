@@ -26,11 +26,13 @@ public class Shield extends Entity {
 			countdown -= delta;
 		}
 		if (countdown <= 0) {
+			health = 0;
 
 			if (recharge != null && recharge.isStopped()){
 				removeAnimation(recharge);
 				recharge = null;
 			}
+		
 			else
 				removeImage(ResourceManager.getImage("salvage/resources/health"+health+".png"));
 			health -= damage;
