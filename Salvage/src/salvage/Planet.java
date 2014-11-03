@@ -11,7 +11,7 @@ public class Planet extends Entity {
 			float gravityDistance){
 		super(x,y);
 		addImageWithBoundingBox(ResourceManager
-				.getImage(SalvageGame.PLANET1_PLANETIMG_RSC));
+				.getImage("salvage/resources/Planet-"+planet+".png"));
 		this.mass = mass;
 		this.gravityDistance = gravityDistance;
 	}

@@ -29,7 +29,7 @@ public class PlayingState extends BasicGameState {
 	public void init(GameContainer container, StateBasedGame game)
 			throws SlickException {
 		// TODO Auto-generated method stub
-		timer = new Timer();
+		//timer = new Timer();
 		isFloating = true;
 		timesUp = false;
 	}
@@ -40,8 +40,14 @@ public class PlayingState extends BasicGameState {
 	public void setLives(int lives){
 		livesLeft = lives;
 	}
+	
+	public void stopTimer(){
+		timer.cancel();
+	}
 	public void setTimer( final int countDown){ 
         duration = countDown;
+        timesUp = false;
+        timer = new Timer();
         timer.scheduleAtFixedRate(new TimerTask() {
             public void run() {
             	duration--;
@@ -288,7 +294,7 @@ public class PlayingState extends BasicGameState {
 			
 			if(sg.astronaut.getShield().getShieldHealth() == 0){
 				livesLeft--;
-			sg.astronaut.getShield().shieldCharge();
+				sg.astronaut.getShield().shieldCharge();
 			
 			}
 			
@@ -308,21 +314,51 @@ public class PlayingState extends BasicGameState {
 			if(sg.astronaut.getCoarseGrainedMinY() > sg.planet.getCoarseGrainedMinY()){
 				if(withinDistance(sg.astronaut, sg.planet.getPosition(), sg.planet.getCoarseGrainedWidth()/2, false)){
 				livesLeft--;
-				sg.astronaut.setPosition(new Vector(sg.ScreenWidth/2,sg.ScreenHeight/2));
+				sg.astronaut.getShield().shieldHit(1, delta);
+				sg.astronaut.setPosition(new Vector(sg.ScreenWidth/2,sg.ScreenHeight/4));
 				}
-			if(numGears == 0 && sg.currentLevel == 1){
+			}
+			if((numGears == 0 && sg.currentLevel == 1) || input.isKeyPressed(Input.KEY_2)){
 				sg.duration = 60;
 				sg.planet = new Planet(sg.ScreenWidth/2, (1.5f)*sg.ScreenHeight, 2, 2000, 1200);
 				sg.moon = new ArrayList<Moon>(10);
-				sg.moon.add(new Moon(sg.ScreenWidth/2, sg.ScreenHeight/4, 100));
+				sg.moon.add(new Moon(sg.ScreenWidth/2, sg.ScreenHeight/2, 100));
+				sg.moon.add(new Moon(sg.ScreenWidth/4,sg.ScreenHeight/2, 100));
 				sg.gear = new ArrayList<Gear>(10);
-				sg.gear.add(new Gear(sg.ScreenWidth/2, sg.ScreenHeight/4-(0.5f*sg.moon.get(0).getCoarseGrainedWidth())-25, 0f, 0f));
+				sg.gear.add(new Gear(sg.ScreenWidth/4, sg.ScreenHeight/2+(0.5f*sg.moon.get(0).getCoarseGrainedWidth())+25, 0f, 0f));
+				sg.gear.add(new Gear(sg.ScreenWidth/4, sg.ScreenHeight/2-(0.5f*sg.moon.get(0).getCoarseGrainedWidth())-25, 0f, 0f));
+				sg.gear.add(new Gear(sg.ScreenWidth/2, sg.ScreenHeight/2+(0.5f*sg.moon.get(1).getCoarseGrainedWidth())+25, 0f, 0f));
 				sg.asteroids = new ArrayList<Asteroid>(3);
-				sg.asteroids.add(new Asteroid(0, 0, 0.1f, 0.1f));
+				sg.asteroids.add(new Asteroid(44, 342, -0.1f, 0.1f));
 				sg.asteroids.add(new Asteroid(345, 653, 0.1f, -0.1f));
 				sg.currentLevel++;
+				((PlayingState)game.getState(SalvageGame.PLAYINGSTATE)).stopTimer();
+				((PlayingState)game.getState(SalvageGame.PLAYINGSTATE)).setTimer(sg.duration);
+				((PlayingState)game.getState(SalvageGame.PLAYINGSTATE)).setGears(sg.gear.size());
+				((PlayingState)game.getState(SalvageGame.PLAYINGSTATE)).setLives(livesLeft);
 			}
-		}
+			if(numGears == 0 && sg.currentLevel == 2|| input.isKeyPressed(Input.KEY_3) ){
+				sg.duration = 60;
+				sg.planet = new Planet(sg.ScreenWidth/2, (1.5f)*sg.ScreenHeight, 3, 3000, 1800);
+				sg.moon = new ArrayList<Moon>(10);
+				sg.moon.add(new Moon(sg.ScreenWidth/4, 3*sg.ScreenHeight/4, 100));
+				sg.moon.add(new Moon(sg.ScreenWidth/4 -50 ,50+sg.ScreenHeight/4, 100));
+				sg.moon.add(new Moon(3*sg.ScreenWidth/4,sg.ScreenHeight/2, 100));
+				sg.gear = new ArrayList<Gear>(10);
+				sg.gear.add(new Gear(sg.ScreenWidth/4, 50+sg.ScreenHeight/4-(0.5f*sg.moon.get(0).getCoarseGrainedWidth())-25, 0f, 0f));
+				sg.gear.add(new Gear(3*sg.ScreenWidth/4+(0.5f*sg.moon.get(0).getCoarseGrainedWidth())-50, sg.ScreenHeight/2+(0.5f*sg.moon.get(0).getCoarseGrainedWidth())+12, 0f, 0f));
+				sg.gear.add(new Gear(sg.ScreenWidth/4+(0.5f*sg.moon.get(0).getCoarseGrainedWidth())+25, 3*sg.ScreenHeight/4, 0f, 0f));
+				sg.asteroids = new ArrayList<Asteroid>(3);
+				sg.asteroids.add(new Asteroid(49, 495, 0.4f, 0.1f));
+				sg.asteroids.add(new Asteroid(345, 653, 0.1f, -0.3f));
+				sg.asteroids.add(new Asteroid(394, 1000, 0.2f, 0.2f));
+				sg.currentLevel++;
+				((PlayingState)game.getState(SalvageGame.PLAYINGSTATE)).stopTimer();
+				((PlayingState)game.getState(SalvageGame.PLAYINGSTATE)).setTimer(sg.duration);
+				((PlayingState)game.getState(SalvageGame.PLAYINGSTATE)).setGears(sg.gear.size());
+				((PlayingState)game.getState(SalvageGame.PLAYINGSTATE)).setLives(livesLeft);
+			}
+		
 		}
 	}
 	

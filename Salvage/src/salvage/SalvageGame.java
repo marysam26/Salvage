@@ -158,6 +158,9 @@ public class SalvageGame extends StateBasedGame {
 			ResourceManager.loadImage(INSTRUCT_BANNER_RSC);
 			ResourceManager.loadImage(ASTROG_BANNER_RSC);
 			ResourceManager.loadImage(ASTROGL_BANNER_RSC);
+			ResourceManager.loadImage("salvage/resources/Planet-1.png");
+			ResourceManager.loadImage("salvage/resources/Planet-2.png");
+			ResourceManager.loadImage("salvage/resources/Planet-3.png");
 			duration = 60;
 			ship = new Spaceship(ScreenWidth/2, 125);
 			Shield shield = new Shield(ScreenWidth/2 + 50, 40);
@@ -165,8 +168,10 @@ public class SalvageGame extends StateBasedGame {
 			planet = new Planet(ScreenWidth/2, (1.5f)*ScreenHeight, 1, 1000, 600);
 			moon = new ArrayList<Moon>(10);
 			moon.add(new Moon(ScreenWidth/4,ScreenHeight/2, 100));
+			moon.add(new Moon(3*ScreenWidth/4,ScreenHeight/2, 100));
 			gear = new ArrayList<Gear>(10);
 			gear.add(new Gear(ScreenWidth/4, ScreenHeight/2-(0.5f*moon.get(0).getCoarseGrainedWidth())-25, 0f, 0f));
+			gear.add(new Gear(3*ScreenWidth/4+(0.5f*moon.get(0).getCoarseGrainedWidth()), ScreenHeight/2+(0.5f*moon.get(0).getCoarseGrainedWidth())+12, 0f, 0f));
 			asteroids = new ArrayList<Asteroid>(3);
 			asteroids.add(new Asteroid(0, 0, 0.1f, 0.1f));
 			asteroids.add(new Asteroid(345, 653, 0.1f, -0.1f));
@@ -175,7 +180,7 @@ public class SalvageGame extends StateBasedGame {
 		public static void main(String[] args) {
 			AppGameContainer app;
 			try {
-				app = new AppGameContainer(new SalvageGame("Salvage", 1280, 800, 2));
+				app = new AppGameContainer(new SalvageGame("Salvage", 1280, 800, 3));
 				app.setDisplayMode(1280, 800, false);
 				app.setVSync(true);
 				app.setShowFPS(true);
