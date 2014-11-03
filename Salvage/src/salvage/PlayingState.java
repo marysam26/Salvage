@@ -282,7 +282,7 @@ public class PlayingState extends BasicGameState {
 			Vector currVelocity = ast.getVelocity();
 			if(ast.getCoarseGrainedMinX() > sg.ScreenWidth)
 				ast.setVelocity(new Vector(-currVelocity.getX(), currVelocity.getY()));
-			if(ast.getCoarseGrainedMaxY() < 0)
+			if(ast.getCoarseGrainedMaxX() < 0)
 				ast.setVelocity(new Vector(-currVelocity.getX(), currVelocity.getY()));
 			if(ast.getCoarseGrainedMinY() > sg.ScreenHeight)
 				ast.setVelocity(new Vector(currVelocity.getX(), -currVelocity.getY()));
