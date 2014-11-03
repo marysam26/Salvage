@@ -173,7 +173,7 @@ public class SalvageGame extends StateBasedGame {
 			try {
 				app = new AppGameContainer(new SalvageGame("Salvage", 1280, 800, 1));
 				app.setDisplayMode(1280, 800, false);
-				app.setVSync(false);
+				app.setVSync(true);
 				app.setShowFPS(true);
 				app.start();
 			} catch (SlickException e) {

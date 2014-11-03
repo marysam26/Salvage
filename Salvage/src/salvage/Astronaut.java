@@ -12,6 +12,7 @@ public class Astronaut extends Entity {
 	private Shield shield;
 	private Boolean hasGear;
 	private Vector velocity;
+	private double theta;
 	
 	private final float MAX_VELOCITY = 0.25f;
 
@@ -24,8 +25,17 @@ public class Astronaut extends Entity {
 		velocity = new Vector(vx, vy);
 		addImageWithBoundingBox(ResourceManager
 				.getImage(SalvageGame.ASTRONAUT_ASTROIMG_RSC));
-	
+		theta = 0;
 	}
+	
+	public void setTheta(double theta){
+		this.theta = theta;
+	}
+	
+	public double getTheta(){
+		return theta;
+	}
+	
 	public Boolean hasGear(){
 		return hasGear;
 	}
@@ -63,4 +73,8 @@ public class Astronaut extends Entity {
 		translate(velocity.scale(delta));
 	}
 	
+	public void updateTheta(double radius){
+		 
+		  this.setPosition((float)(this.getX() + radius*Math.cos(theta)),(float)(this.getY() + radius*Math.sin(theta)));
+	}
 }

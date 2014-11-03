@@ -23,6 +23,7 @@ public class PlayingState extends BasicGameState {
 	private int livesLeft;
 	private boolean isFloating;
 	private boolean timesUp;
+	private Moon moon;
 	@Override
 	public void init(GameContainer container, StateBasedGame game)
 			throws SlickException {
@@ -83,52 +84,77 @@ public class PlayingState extends BasicGameState {
 		 {
 		Input input = container.getInput();
 		SalvageGame sg = (SalvageGame)game;
-		if(input.isKeyDown(Input.KEY_LEFT) && input.isKeyDown(Input.KEY_RIGHT)){
-			sg.astronaut.removeImage(ResourceManager.getImage(SalvageGame.ASTRONAUT_ASTROIMG_RSC));
-			sg.astronaut.removeImage(ResourceManager.getImage(SalvageGame.ASTRONAUTL_ASTROLIMG_RSC));
-			if(sg.astronaut.getVelocity().getX() > sg.astronaut.getVelocity().getY()){
+		if(isFloating){
+			if(input.isKeyDown(Input.KEY_LEFT) && input.isKeyDown(Input.KEY_RIGHT)){
+				sg.astronaut.removeImage(ResourceManager.getImage(SalvageGame.ASTRONAUT_ASTROIMG_RSC));
+				sg.astronaut.removeImage(ResourceManager.getImage(SalvageGame.ASTRONAUTL_ASTROLIMG_RSC));
+				if(sg.astronaut.getVelocity().getX() > sg.astronaut.getVelocity().getY()){
+					sg.astronaut.addImageWithBoundingBox(ResourceManager.getImage(SalvageGame.ASTRONAUTL_ASTROLIMG_RSC));
+				}
+				else{
+					sg.astronaut.addImageWithBoundingBox(ResourceManager.getImage(SalvageGame.ASTRONAUT_ASTROIMG_RSC));
+				}
+			}
+
+			if(input.isKeyDown(Input.KEY_RIGHT)){
+				sg.astronaut.setVelocity(sg.astronaut.getVelocity().add(new Vector(-.01f,0)));
+				sg.astronaut.removeImage(ResourceManager.getImage(SalvageGame.ASTRONAUT_ASTROIMG_RSC));
+				sg.astronaut.removeImage(ResourceManager.getImage(SalvageGame.ASTRONAUTL_ASTROLIMG_RSC));
 				sg.astronaut.addImageWithBoundingBox(ResourceManager.getImage(SalvageGame.ASTRONAUTL_ASTROLIMG_RSC));
+
 			}
-			else{
+			if(input.isKeyDown(Input.KEY_LEFT)){
+				sg.astronaut.setVelocity(sg.astronaut.getVelocity().add(new Vector(.01f,0)));
+				sg.astronaut.removeImage(ResourceManager.getImage(SalvageGame.ASTRONAUTL_ASTROLIMG_RSC));
+				sg.astronaut.removeImage(ResourceManager.getImage(SalvageGame.ASTRONAUT_ASTROIMG_RSC));
 				sg.astronaut.addImageWithBoundingBox(ResourceManager.getImage(SalvageGame.ASTRONAUT_ASTROIMG_RSC));
+
 			}
+			if(input.isKeyDown(Input.KEY_UP)){
+				sg.astronaut.setVelocity(sg.astronaut.getVelocity().add(new Vector(0f,0.01f)));
+			}
+			if(input.isKeyDown(Input.KEY_DOWN)){
+				sg.astronaut.setVelocity(sg.astronaut.getVelocity().add(new Vector(0f,-0.01f)));
+			}
+			if(!(input.isKeyDown(Input.KEY_DOWN) || input.isKeyDown(Input.KEY_UP) ||
+					input.isKeyDown(Input.KEY_LEFT) || input.isKeyDown(Input.KEY_RIGHT)))
+			{
+				sg.astronaut.setVelocity(sg.astronaut.getVelocity().add(sg.astronaut.getVelocity().negate().scale((float)(0.001*delta))));
+			}
+		}
+		else{
+
+			if(input.isKeyDown(Input.KEY_LEFT)){
+				sg.astronaut.setTheta(sg.astronaut.getTheta() + Math.toRadians((1 *(delta/1000.0))));
+				//sg.astronaut.setVelocity(sg.astronaut.getVelocity().add(new Vector(.01f,0)));
+			}
+			else if(input.isKeyDown(Input.KEY_RIGHT)){
+				sg.astronaut.setTheta(sg.astronaut.getTheta() + Math.toRadians((-1 *(delta/1000.0))));
+			}
+			else if(input.isKeyDown(Input.KEY_DOWN)){
+				sg.astronaut.setVelocity(sg.astronaut.getVelocity().add(new Vector(0f,0.01f)));
+				isFloating = true;
+			}
+			else
+				sg.astronaut.setTheta(sg.astronaut.getTheta() + Math.toRadians((0 *(delta/1000.0))));
 		}
 		
-		if(input.isKeyDown(Input.KEY_RIGHT)){
-			sg.astronaut.setVelocity(sg.astronaut.getVelocity().add(new Vector(-.01f,0)));
-			sg.astronaut.removeImage(ResourceManager.getImage(SalvageGame.ASTRONAUT_ASTROIMG_RSC));
-			sg.astronaut.removeImage(ResourceManager.getImage(SalvageGame.ASTRONAUTL_ASTROLIMG_RSC));
-			sg.astronaut.addImageWithBoundingBox(ResourceManager.getImage(SalvageGame.ASTRONAUTL_ASTROLIMG_RSC));
-	
-		}
-		if(input.isKeyDown(Input.KEY_LEFT)){
-			sg.astronaut.setVelocity(sg.astronaut.getVelocity().add(new Vector(.01f,0)));
-			sg.astronaut.removeImage(ResourceManager.getImage(SalvageGame.ASTRONAUTL_ASTROLIMG_RSC));
-			sg.astronaut.removeImage(ResourceManager.getImage(SalvageGame.ASTRONAUT_ASTROIMG_RSC));
-			sg.astronaut.addImageWithBoundingBox(ResourceManager.getImage(SalvageGame.ASTRONAUT_ASTROIMG_RSC));
-
-		}
-		if(input.isKeyDown(Input.KEY_UP)){
-			sg.astronaut.setVelocity(sg.astronaut.getVelocity().add(new Vector(0f,0.01f)));
-		}
-		if(input.isKeyDown(Input.KEY_DOWN)){
-			sg.astronaut.setVelocity(sg.astronaut.getVelocity().add(new Vector(0f,-0.01f)));
-		}
-		if(!(input.isKeyDown(Input.KEY_DOWN) || input.isKeyDown(Input.KEY_UP) ||
-				input.isKeyDown(Input.KEY_LEFT) || input.isKeyDown(Input.KEY_RIGHT)))
-				{
-			sg.astronaut.setVelocity(sg.astronaut.getVelocity().add(sg.astronaut.getVelocity().negate().scale((float)(0.001*delta))));
-		}
 		if(input.isKeyPressed(Input.KEY_S)){
 			sg.astronaut.getShield().shieldHit(1, delta);
 		}
-		for(Moon mn : sg.moon)
-			if(sg.astronaut.collides(mn) != null){
-				if(sg.astronaut.getVelocity().length() > 0.25)
-					sg.astronaut.getShield().shieldHit(1, delta);
-				else
-					isFloating = false;
-			}
+		if(isFloating){
+			for(Moon mn : sg.moon)
+				if(sg.astronaut.collides(mn) != null){
+					if(sg.astronaut.getVelocity().length() > 0.25)
+						sg.astronaut.getShield().shieldHit(1, delta);
+					else
+						if(withinDistance(sg.astronaut, mn.getPosition(), mn.getCoarseGrainedWidth()/2)){
+							isFloating = false;
+							moon = mn;
+							sg.astronaut.setTheta(Math.toRadians(Math.atan2((double)((sg.astronaut.getY()-moon.getY())), (double)((sg.astronaut.getX()-moon.getX())))*(180/Math.PI)));
+						}
+				}
+		}
 		
 		for (Gear gr : sg.gear){
 			if(sg.astronaut.collides(gr) != null){
@@ -167,7 +193,10 @@ public class PlayingState extends BasicGameState {
 		sg.astronaut.setVelocity(sg.astronaut.getVelocity().add(applyGravity(sg.astronaut.getX(),
 				sg.planet.getX(),sg.astronaut.getY(), sg.planet.getY(), sg.planet.getMass(), sg.planet.getDistance())));
 	
-		sg.astronaut.update(delta);
+		if(isFloating)
+			sg.astronaut.update(delta);
+		else
+			sg.astronaut.updateTheta(0.008*moon.getCoarseGrainedWidth());
 		if(heldGear != null)
 			heldGear.update(delta);
 		for( Asteroid ast : sg.asteroids){
