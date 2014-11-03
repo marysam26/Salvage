@@ -76,6 +76,8 @@ public class SalvageGame extends StateBasedGame {
 		public static final String WINNER_BANNER_RSC = "salvage/resources/youWin.png";
 		public static final String START_BANNER_RSC = "salvage/resources/startscreen.png";
 		public static final String INSTRUCT_BANNER_RSC = "salvage/resources/instructions.png";
+		public static final String ASTROG_BANNER_RSC = "salvage/resources/astronautGear.png";
+		public static final String ASTROGL_BANNER_RSC = "salvage/resources/astronautLGear.png";
 //		public static final String BANG_EXPLOSIONSND_RSC = "bounce/resource/explosion.wav";
 //		public static final String PING_EXPLOSIONSND_RSC = "bounce/resource/ping.ogg";
 //		
@@ -154,6 +156,8 @@ public class SalvageGame extends StateBasedGame {
 			ResourceManager.loadImage(WINNER_BANNER_RSC);
 			ResourceManager.loadImage(START_BANNER_RSC);
 			ResourceManager.loadImage(INSTRUCT_BANNER_RSC);
+			ResourceManager.loadImage(ASTROG_BANNER_RSC);
+			ResourceManager.loadImage(ASTROGL_BANNER_RSC);
 			duration = 60;
 			ship = new Spaceship(ScreenWidth/2, 125);
 			Shield shield = new Shield(ScreenWidth/2 + 50, 40);
@@ -171,9 +175,9 @@ public class SalvageGame extends StateBasedGame {
 		public static void main(String[] args) {
 			AppGameContainer app;
 			try {
-				app = new AppGameContainer(new SalvageGame("Salvage", 1280, 800, 1));
+				app = new AppGameContainer(new SalvageGame("Salvage", 1280, 800, 2));
 				app.setDisplayMode(1280, 800, false);
-				app.setVSync(false);
+				app.setVSync(true);
 				app.setShowFPS(true);
 				app.start();
 			} catch (SlickException e) {
