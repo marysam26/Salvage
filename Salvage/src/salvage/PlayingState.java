@@ -240,13 +240,13 @@ public class PlayingState extends BasicGameState {
 				
 		}
 		if(sg.astronaut.getCoarseGrainedMinX() > sg.ScreenWidth)
-			sg.astronaut.setX(-32);
-		if(sg.astronaut.getCoarseGrainedMaxY() < 0)
-			sg.astronaut.setX(sg.ScreenWidth+32);
-		/*if(ast.getCoarseGrainedMinY() > sg.ScreenHeight)
-			ast.setY(-50);
-		if(ast.getCoarseGrainedMaxY() < 0)
-			ast.setX(sg.ScreenHeight+50);*/
+			sg.astronaut.setX(32);
+		if(sg.astronaut.getCoarseGrainedMaxX() < 0)
+			sg.astronaut.setX(sg.ScreenWidth-32);
+		if(sg.astronaut.getCoarseGrainedMinY() < 50)
+			sg.astronaut.setY(82);
+		if(sg.astronaut.getCoarseGrainedMaxY() > sg.ScreenHeight)
+			sg.astronaut.setY(sg.ScreenHeight-32);
 		
 		if(sg.astronaut.collides(sg.ship)!= null){
 			if(sg.astronaut.hasGear()){
@@ -279,14 +279,15 @@ public class PlayingState extends BasicGameState {
 				ast.setY(-50);
 			if(ast.getCoarseGrainedMaxY() < 0)
 				ast.setX(sg.ScreenHeight+50);*/
+			Vector currVelocity = ast.getVelocity();
 			if(ast.getCoarseGrainedMinX() > sg.ScreenWidth)
-				ast.setVelocity(ast.getVelocity().negate());
+				ast.setVelocity(new Vector(-currVelocity.getX(), currVelocity.getY()));
 			if(ast.getCoarseGrainedMaxY() < 0)
-				ast.setVelocity(ast.getVelocity().negate());
+				ast.setVelocity(new Vector(-currVelocity.getX(), currVelocity.getY()));
 			if(ast.getCoarseGrainedMinY() > sg.ScreenHeight)
-				ast.setVelocity(ast.getVelocity().negate());
+				ast.setVelocity(new Vector(currVelocity.getX(), -currVelocity.getY()));
 			if(ast.getCoarseGrainedMaxY() < 0)
-				ast.setVelocity(ast.getVelocity().negate());
+				ast.setVelocity(new Vector(currVelocity.getX(), -currVelocity.getY()));
 			ast.update(delta);
 			
 			if(ast.collides(sg.astronaut) != null)

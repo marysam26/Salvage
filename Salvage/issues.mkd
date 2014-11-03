@@ -17,11 +17,11 @@
 **[15]** Add start screen with instructions
 **[16]** Add effect of death if astronaut falls too far into the planet's atmosphere
 **[17]** Add correct "round" collision control to moon and astronaut
+**[18]** Add level 2 and 3
 
 # Pending #
 
-**[]** Add level 2
-**[]**Add level 3
+**[19]** Reinforce bounds of screen so astronaut/asteroids don't drift offscreen
 
 
 
