@@ -22,7 +22,6 @@
 
 
 **[17]** Add correct "round" collision control to moon and astronaut
-**[18]** Add floating state to astronaut object
 
 **[]**Add visual representation of where gravity affects astronaut
 **[14]** Add thrust animation
