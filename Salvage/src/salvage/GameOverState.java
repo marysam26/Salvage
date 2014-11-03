@@ -1,5 +1,6 @@
 package salvage;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 
 import jig.ResourceManager;
@@ -66,10 +67,26 @@ class GameOverState extends BasicGameState {
 	@Override
 	public void update(GameContainer container, StateBasedGame game,
 			int delta) throws SlickException {
-
+		SalvageGame sg = (SalvageGame)game;
 		
 		timer -= delta;
 		if (timer <= 0){
+			sg.duration = 60;
+			sg.ship = new Spaceship(sg.ScreenWidth/2, 125);
+			Shield shield = new Shield(sg.ScreenWidth/2 + 50, 40);
+			sg.astronaut = new Astronaut(sg.ScreenWidth/2, sg.ScreenHeight/2, 0f, 0f, shield);
+			sg.planet = new Planet(sg.ScreenWidth/2, (1.5f)*sg.ScreenHeight, 1, 1000, 600);
+			sg.moon = new ArrayList<Moon>(10);
+			sg.moon.add(new Moon(sg.ScreenWidth/4,sg.ScreenHeight/2, 100));
+			sg.moon.add(new Moon(3*sg.ScreenWidth/4,sg.ScreenHeight/2, 100));
+			sg.gear = new ArrayList<Gear>(10);
+			sg.gear.add(new Gear(sg.ScreenWidth/4, sg.ScreenHeight/2-(0.5f*sg.moon.get(0).getCoarseGrainedWidth())-25, 0f, 0f));
+			sg.gear.add(new Gear(3*sg.ScreenWidth/4+(0.5f*sg.moon.get(0).getCoarseGrainedWidth()), sg.ScreenHeight/2+(0.5f*sg.moon.get(0).getCoarseGrainedWidth())+12, 0f, 0f));
+
+			sg.asteroids = new ArrayList<Asteroid>(3);
+			sg.asteroids.add(new Asteroid(0, 0, 0.1f, 0.1f));
+			sg.asteroids.add(new Asteroid(345, 653, 0.1f, -0.1f));
+			((PlayingState)game.getState(SalvageGame.PLAYINGSTATE)).stopTimer();
 			game.enterState(SalvageGame.STARTUPSTATE, new EmptyTransition(), new HorizontalSplitTransition() );
 		}
 		// check if there are any finished explosions, if so remove them
