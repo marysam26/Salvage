@@ -175,7 +175,7 @@ public class SalvageGame extends StateBasedGame {
 		public static void main(String[] args) {
 			AppGameContainer app;
 			try {
-				app = new AppGameContainer(new SalvageGame("Salvage", 1280, 800, 1));
+				app = new AppGameContainer(new SalvageGame("Salvage", 1280, 800, 2));
 				app.setDisplayMode(1280, 800, false);
 				app.setVSync(true);
 				app.setShowFPS(true);

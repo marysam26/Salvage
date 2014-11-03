@@ -16,19 +16,20 @@
 **[14]** Add game over state that is entered if lives = 0 or timer = 0
 **[15]** Add start screen with instructions
 **[16]** Add effect of death if astronaut falls too far into the planet's atmosphere
+**[17]** Add correct "round" collision control to moon and astronaut
 
 # Pending #
 
+**[]** Add level 2
+**[]**Add level 3
 
 
-**[17]** Add correct "round" collision control to moon and astronaut
 
 **[]**Add visual representation of where gravity affects astronaut
 **[14]** Add thrust animation
 **[16]** Add astronaut animation when hit by asteroid
 **[]** Add astronaut animation for moon walking
 **[]**Add main menu
-**[]** Add level 2
-**[]**Add level 3
+
 
 

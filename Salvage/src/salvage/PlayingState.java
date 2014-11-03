@@ -1,5 +1,6 @@
 package salvage;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -63,6 +64,7 @@ public class PlayingState extends BasicGameState {
 		g.drawString("Lives Remaining: "+livesLeft, 110, 30);
 		g.drawString("Time Left: "+duration/60 +":" +duration%60  , 310, 30);
 		g.drawString("Shield", 500, 30);
+		g.drawString("Level: "+ sg.currentLevel, 900, 30);
 		sg.ship.render(g);
 		sg.astronaut.render(g);
 		sg.planet.render(g);
@@ -308,7 +310,19 @@ public class PlayingState extends BasicGameState {
 				livesLeft--;
 				sg.astronaut.setPosition(new Vector(sg.ScreenWidth/2,sg.ScreenHeight/2));
 				}
+			if(numGears == 0 && sg.currentLevel == 1){
+				sg.duration = 60;
+				sg.planet = new Planet(sg.ScreenWidth/2, (1.5f)*sg.ScreenHeight, 2, 2000, 1200);
+				sg.moon = new ArrayList<Moon>(10);
+				sg.moon.add(new Moon(sg.ScreenWidth/2, sg.ScreenHeight/4, 100));
+				sg.gear = new ArrayList<Gear>(10);
+				sg.gear.add(new Gear(sg.ScreenWidth/2, sg.ScreenHeight/4-(0.5f*sg.moon.get(0).getCoarseGrainedWidth())-25, 0f, 0f));
+				sg.asteroids = new ArrayList<Asteroid>(3);
+				sg.asteroids.add(new Asteroid(0, 0, 0.1f, 0.1f));
+				sg.asteroids.add(new Asteroid(345, 653, 0.1f, -0.1f));
+				sg.currentLevel++;
 			}
+		}
 		}
 	}
 	
