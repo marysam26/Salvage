@@ -26,7 +26,8 @@ public class Shield extends Entity {
 			countdown -= delta;
 		}
 		if (countdown <= 0) {
-			health = 0;
+			if(health <= 0)
+				health = 0;
 
 			if (recharge != null && recharge.isStopped()){
 				removeAnimation(recharge);
