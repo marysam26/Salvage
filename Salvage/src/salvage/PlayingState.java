@@ -346,6 +346,7 @@ public class PlayingState extends BasicGameState {
 				sg.asteroids.add(new Asteroid(44, 342, -0.1f, 0.1f));
 				sg.asteroids.add(new Asteroid(345, 653, 0.1f, -0.1f));
 				sg.asteroids.add(new Asteroid(45, 453, -0.1f, -0.1f));
+				sg.asteroids.add(new Asteroid(655, 645, 0.2f, 0.2f));
 				sg.currentLevel++;
 				((PlayingState)game.getState(SalvageGame.PLAYINGSTATE)).stopTimer();
 				((PlayingState)game.getState(SalvageGame.PLAYINGSTATE)).setTimer(sg.duration);
@@ -373,7 +374,6 @@ public class PlayingState extends BasicGameState {
 				sg.asteroids.add(new Asteroid(394, 1000, 0.2f, 0.2f));
 				sg.asteroids.add(new Asteroid(444, 23, 0.4f, 0.1f));
 				sg.asteroids.add(new Asteroid(435, 653, -0.1f, -0.3f));
-				sg.asteroids.add(new Asteroid(655, 645, 0.2f, 0.2f));
 				sg.currentLevel++;
 				((PlayingState)game.getState(SalvageGame.PLAYINGSTATE)).stopTimer();
 				((PlayingState)game.getState(SalvageGame.PLAYINGSTATE)).setTimer(sg.duration);
