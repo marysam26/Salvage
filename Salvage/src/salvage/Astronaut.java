@@ -1,9 +1,5 @@
 package salvage;
 
-
-
-
-
 import jig.Entity;
 import jig.ResourceManager;
 import jig.Vector;
@@ -71,14 +67,6 @@ public class Astronaut extends Entity {
 	}
 	
 	public void setVelocity(Vector newVelocity){
-/*		if(newVelocity.getX() < velocity.getX()){
-			removeImage(ResourceManager.getImage(SalvageGame.ASTRONAUT_ASTROIMG_RSC));
-			addImageWithBoundingBox(ResourceManager.getImage(SalvageGame.ASTRONAUTL_ASTROLIMG_RSC));
-		}
-		else if(newVelocity.getX() > velocity.getX()){
-			removeImage(ResourceManager.getImage(SalvageGame.ASTRONAUTL_ASTROLIMG_RSC));
-			addImageWithBoundingBox(ResourceManager.getImage(SalvageGame.ASTRONAUT_ASTROIMG_RSC));
-		}*/
 		if(Math.abs(newVelocity.getX()) < MAX_VELOCITY && Math.abs(newVelocity.getY()) < MAX_VELOCITY)
 			velocity = newVelocity;
 		
@@ -89,11 +77,6 @@ public class Astronaut extends Entity {
 	}
 	
 	public void updateTheta(float xm, float ym, boolean left){
-/*		 double x = this.getX()+ Math.cos(theta);// - orbit/2;
-		 double y = this.getY() + Math.sin(theta);// - orbit/2;
-*/
-	
-
 		double x = xm + Math.sin(Math.toRadians((double)theta)) * orbit;
 		double y = ym + Math.cos(Math.toRadians((double)theta)) * orbit;
 		// draw rectangle on [x, y] coordinates
@@ -102,6 +85,5 @@ public class Astronaut extends Entity {
 			theta++;
 		else
 			theta--;
-		// f++;
 	}
 }

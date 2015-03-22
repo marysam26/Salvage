@@ -1,8 +1,5 @@
 package salvage;
 
-
-
-
 import jig.ResourceManager;
 
 import org.newdawn.slick.GameContainer;
@@ -19,7 +16,6 @@ private boolean readingInstruct;
 	@Override
 	public void init(GameContainer container, StateBasedGame game)
 			throws SlickException {
-		// TODO Auto-generated method stub
 		readingInstruct = false;
 		
 	}
@@ -39,7 +35,6 @@ private boolean readingInstruct;
 	@Override
 	public void update(GameContainer container, StateBasedGame game, int delta)
 			throws SlickException {
-		// TODO Auto-generated method stub
 		Input input = container.getInput();
 		SalvageGame sg = (SalvageGame)game;
 
@@ -81,7 +76,6 @@ private boolean readingInstruct;
 
 	@Override
 	public int getID() {
-		// TODO Auto-generated method stub
 		return SalvageGame.STARTUPSTATE;
 	}
 
